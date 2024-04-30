@@ -6,7 +6,7 @@ function HomePage() {
     <>
       <h1>Homepage</h1>
       <Link to={"/generator"}>
-        <button>Generator</button>
+        <button>Generator1</button>
       </Link>
 
       <About />
