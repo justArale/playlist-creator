@@ -1,7 +1,12 @@
 import React from "react";
+import GeneratorBox from "../components/GeneratorBox";
 
 function GeneratorPage() {
-  return <div>GeneratorPage</div>;
+  return (
+    <>
+      <GeneratorBox />
+    </>
+  );
 }
 
 export default GeneratorPage;

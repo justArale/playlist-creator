@@ -8,8 +8,11 @@ function Footer() {
           <a href="https://github.com/justArale/playlist-creator">
             playlist-creator
           </a>{" "}
-          made with ❤️ by <a href="https://github.com/annagy07">annagy07</a>{" "}
-          <a href="https://github.com/camialbuq">Cami Albuquerque</a> and{" "}
+          made with ❤️ and 🎵 by{" "}
+          <a href="https://github.com/annagy07">annagy07</a>
+          {" | "}
+          <a href="https://github.com/camialbuq">Cami Albuquerque</a>
+          {" | "}
           <a href="https://github.com/justArale">Arale</a>
         </h5>
       </div>
