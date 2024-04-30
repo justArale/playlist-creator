@@ -8,6 +8,7 @@ function HomePage() {
       <Link to={"/generator"}>
         <button>Generator</button>
       </Link>
+
       <About />
     </>
   );
