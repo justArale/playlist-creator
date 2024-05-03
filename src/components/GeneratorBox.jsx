@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchArtist from "./SearchArtist";
 import RangeButton from "./RangeButton";
+import { Link } from "react-router-dom";
 
 const GeneratorBox = () => {
   const [artistID, setArtistID] = useState("");
@@ -39,6 +40,7 @@ const GeneratorBox = () => {
 
   const getArtistId = (chosenArtistId) => {
     setArtistID(chosenArtistId);
+    console.log(chosenArtistId)
   };
 
   return (
@@ -49,6 +51,19 @@ const GeneratorBox = () => {
         accessToken={accessToken}
       />
       <RangeButton getDanceability={getDanceability} />
+      <br></br>
+      <Link
+        to={{
+          pathname: "/results",
+          state: {
+            artistID: artistID,
+            danceMin: danceMin,
+            danceMax: danceMax,
+          },
+        }}
+      >
+        <button className="create-playlist-button">Create Playlist</button>
+      </Link>
     </div>
   );
 };
