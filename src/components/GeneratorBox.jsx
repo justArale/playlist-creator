@@ -23,7 +23,6 @@ const GeneratorBox = () => {
           },
         }
       );
-
       setAccessToken(response.data.access_token);
     } catch (error) {
       console.error("Error getting access token:", error);
@@ -47,6 +46,7 @@ const GeneratorBox = () => {
       );
 
       setSearchResults(response.data.artists.items);
+      console.log(response.data.artists.items);
     } catch (error) {
       console.error("Error searching for artists:", error.response.data);
     }
@@ -84,8 +84,6 @@ const GeneratorBox = () => {
 };
 
 export default GeneratorBox;
-
-
 
 // import React, { useState } from "react";
 // import { useParams } from "react-router-dom";
