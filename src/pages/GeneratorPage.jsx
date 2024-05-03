@@ -6,14 +6,11 @@ import RangeButton from "../components/RangeButton";
 
 import RelatedArtists from "../components/RelatedArtists";
 
-
 function GeneratorPage() {
   return (
     <>
       <GeneratorBox />
-
       <RangeButton />
-      <RelatedArtists />
     </>
   );
 }
