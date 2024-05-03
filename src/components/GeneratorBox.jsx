@@ -88,7 +88,9 @@ const GeneratorBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // No need for search, just select the artist if available
-    const selected = searchResults.find(artist => artist.name === artistNameInput);
+    const selected = searchResults.find(
+      (artist) => artist.name === artistNameInput
+    );
     if (selected) {
       handleOptionClick(selected);
     }
@@ -110,7 +112,9 @@ const GeneratorBox = () => {
             placeholder="Enter artist name"
             list="artists" // Associate input with datalist
           />
-          <datalist id="artists"> {/* Datalist for autocomplete options */}
+          <datalist id="artists">
+            {" "}
+            {/* Datalist for autocomplete options */}
             {searchResults.map((artist) => (
               <option
                 key={artist.id}
@@ -120,17 +124,16 @@ const GeneratorBox = () => {
             ))}
           </datalist>
           <br></br>
-          <button type="submit" className="find-artist-button">Choose this Artist</button>
+          <button type="submit" className="find-artist-button">
+            Choose this Artist
+          </button>
         </form>
       )}
       {selectedArtist && (
         <div>
           <p>Selected Artist:</p>
           <p>{selectedArtist.name}</p>
-          <img
-            src={selectedArtist.images[0]?.url}
-            alt={selectedArtist.name}
-          />
+          <img src={selectedArtist.images[0]?.url} alt={selectedArtist.name} />
         </div>
       )}
     </div>
@@ -138,9 +141,6 @@ const GeneratorBox = () => {
 };
 
 export default GeneratorBox;
-
-
-
 
 // import React, { useState } from "react";
 // import axios from "axios";
