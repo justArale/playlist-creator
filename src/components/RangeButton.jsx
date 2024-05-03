@@ -10,49 +10,66 @@ function RangeButton(props) {
   const artistID = "0CxkG7EdCzA4QJoDeiODFP";
 
   // Function to fetch the Bearer token from Spotify
-  const getAccessToken = async () => {
-    const base64Encoded = btoa(
-      `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`
-    );
+  // const getAccessToken = async () => {
+  //   const base64Encoded = btoa(
+  //     `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`
+  //   );
 
-    try {
-      const response = await axios.post(
-        "https://accounts.spotify.com/api/token",
-        "grant_type=client_credentials",
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Basic ${base64Encoded}`,
-          },
-        }
-      );
-      setAccessToken(response.data.access_token);
-    } catch (error) {
-      console.error("Error getting access token:", error);
-    }
-  };
+  //   try {
+  //     const response = await axios.post(
+  //       "https://accounts.spotify.com/api/token",
+  //       "grant_type=client_credentials",
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //           Authorization: `Basic ${base64Encoded}`,
+  //         },
+  //       }
+  //     );
+  //     setAccessToken(response.data.access_token);
+  //   } catch (error) {
+  //     console.error("Error getting access token:", error);
+  //   }
+  // };
 
   // Function to search for tracks by danceability
-  const searchTracks = async () => {
-    try {
-      if (!accessToken) {
-        await getAccessToken(); // Get the token if not available
-      }
 
-      const response = await axios.get(
-        `https://api.spotify.com/v1/recommendations?seed_artists=${artistID}&seed_tracks=0c6xIDDpzE81m2q797ordA&min_danceability=${danceMin}&max_danceability=${danceMax}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+//   const searchTracks = async () => {
+ //    try {
+ //      if (!accessToken) {
+ //        await getAccessToken(); // Get the token if not available
+//        }
+//  
+//        const response = await axios.get(
+//          `https://api.spotify.com/v1/recommendations?seed_artists=${artistID}&seed_tracks=0c6xIDDpzE81m2q797ordA&min_danceability=${danceMin}&max_danceability=${danceMax}`,
+//          {
+//            headers: {
+//              Authorization: `Bearer ${accessToken}`,
+//            },
+//          }
+ //       );
 
-      setSearchResults(response.data.artists.items);
-    } catch (error) {
-      console.error("Error searching for tracks:", error.response.data);
-    }
-  };
+  // const searchTracks = async () => {
+  //   try {
+  //     if (!accessToken) {
+  //       await getAccessToken(); // Get the token if not available
+  //     }
+
+
+  //     const response = await axios.get(
+  //       `https://api.spotify.com/v1/recommendations?seed_artists=${artistID}&seed_tracks=0c6xIDDpzE81m2q797ordA&min_danceability=${danceMin}&max_danceability=${danceMax}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       }
+  //     );
+
+  //     setSearchResults(response.data.artists.items);
+  //   } catch (error) {
+  //     console.error("Error searching for tracks:", error.response.data);
+  //   }
+  // };
 
   const moodSelector = (min, max) => {
     return props.getDanceability(min, max);
