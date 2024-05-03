@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import SpotifyLogin from "../components/SpotifyLogin";
 
 function Navbar() {
   return (
@@ -16,6 +17,7 @@ function Navbar() {
           <Link to={"/favorits"}>
             <button>Favoriten</button>
           </Link>
+          <SpotifyLogin />
         </div>
       </div>
     </div>
