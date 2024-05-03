@@ -1,11 +1,10 @@
 import React from "react";
-import RelatedArtists from "../components/RelatedArtists";
+import LoadResults from "../components/LoadResults";
 
 function ResultsPage() {
   return (
-    <div className="results-page-container">
-      <h1>Results Page</h1>
-      <RelatedArtists />
+    <div className="results-page-container my-44 py-4">
+      <LoadResults />
     </div>
   );
 }

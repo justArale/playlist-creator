@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const SearchArtist = ({ getAccessToken, accessToken }) => {
+const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
+
   const [artistNameInput, setArtistNameInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
@@ -25,7 +26,6 @@ const SearchArtist = ({ getAccessToken, accessToken }) => {
       );
 
       setSearchResults(response.data.artists.items);
-      console.log(response.data.artists.items);
     } catch (error) {
       console.error("Error searching for artists:", error.response.data);
     }
@@ -46,8 +46,8 @@ const SearchArtist = ({ getAccessToken, accessToken }) => {
           },
         }
       );
-
       setSelectedArtist(response.data);
+      getArtistId(response.data.id);
     } catch (error) {
       console.error("Error getting artist by ID:", error.response.data);
     }
@@ -76,8 +76,13 @@ const SearchArtist = ({ getAccessToken, accessToken }) => {
 
   // Function to set the selected artist when an option is clicked
   const handleOptionClick = (artist) => {
+
     getArtistById(artist.id);
   };
+
+ ;
+
+  //   getArtistId(selectedArtist.id)
 
   return (
     <div>

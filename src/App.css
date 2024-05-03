@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  width: 100vw;
   text-align: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 .logo {
@@ -42,6 +42,13 @@
 }
 
 .find-artist-button {
+  padding: 5px 10px;
+  border: solid black 1px;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.create-playlist-button {
   padding: 5px 10px;
   border: solid black 1px;
   border-radius: 10px;
