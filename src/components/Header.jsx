@@ -1,10 +1,11 @@
 import React from "react";
 import HomeImage from "..//assets/HomePage_Header.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <header
-      className="mb-20 h-screen bg-center bg-cover bg-no-repeat"
+      className="my-4 h-screen bg-center bg-cover bg-no-repeat"
       style={{ backgroundImage: `url(${HomeImage})` }}
     >
       <div className="flex items-center w-full sm:h-3/4 md:h-5/6 lg:h-5/6 py-4 pl-20 text-left">
@@ -19,12 +20,18 @@ function Header() {
                 your <span className="text-purple-700">Artist</span> and{" "}
                 <span className="text-purple-700">Mood</span> with Spotify.
               </h2>
-              <a
+              <Link
+                to={"/generator"}
+                className="text-xlinline-block w-auto md:w-auto mb-4 md:mr-6 py-5 px-8 text-md font-bold uppercase border-2 border-transparent bg-violet-900 rounded-full hover:bg-violet-500 text-white transition duration-200"
+              >
+                <button>+ Create Now</button>
+              </Link>
+              {/* <a
                 className="text-xlinline-block w-auto md:w-auto mb-4 md:mr-6 py-5 px-8 text-md font-bold uppercase border-2 border-transparent bg-violet-900 rounded-full hover:bg-violet-500 text-white transition duration-200"
                 href="#"
               >
                 + Create Now
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

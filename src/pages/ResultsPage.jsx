@@ -3,7 +3,7 @@ import LoadResults from "../components/LoadResults";
 
 function ResultsPage() {
   return (
-    <div className="results-page-container mb-8 py-4">
+    <div className="results-page-container my-44 py-4">
       <LoadResults />
     </div>
   );

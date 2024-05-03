@@ -6,10 +6,6 @@ function HomePage() {
   return (
     <>
       <Header />
-      <Link to={"/generator"}>
-        <button>Generator1</button>
-      </Link>
-
       <About />
     </>
   );
