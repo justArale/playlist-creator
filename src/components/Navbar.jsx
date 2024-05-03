@@ -11,7 +11,7 @@ function Navbar() {
             class="h-8"
             alt="Our playlist logo"
           /> */}
-          <span className="text-2xl font-semibold whitespace-nowrap text-violet-700 mx-4 fixed left-20">
+          <span className="text-2xl font-semibold whitespace-nowrap text-violet-700 mx-4 fixed left-20 rounded transition-colors hover:text-white hover:p-1 hover:bg-purple-700 hover:animate-bounce active:underline">
             <Link to="/">Playlist Generator</Link>
           </span>
         </a>
@@ -20,7 +20,7 @@ function Navbar() {
           className="w-full md:block md:w-auto flex justify-end align-center lg:justify-end"
           id="navbar-solid-bg"
         >
-          <ul className="flex font-medium mt-4 rounded-lg bg-gray-50 md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 mr-4 sm:justify-items-start lg:mr-4">
+          <ul className="flex font-medium mt-4 rounded-lg bg-gray-50 md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 mr-4 sm:justify-items-start lg:mr-4 ">
             <li>
               {/* <Link
                 to={"/"}
@@ -32,13 +32,13 @@ function Navbar() {
             <li>
               <Link
                 to={"/favorites"}
-                className="block text-xl py-2 px-3 md:p-0 text-yellow-500 rounded transition-colors hover:text-purple-600 hover:animate-bounce active:underline"
+                className="block text-xl py-3 px-4 mr-8 md:p-0 text-purple-700 rounded transition-colors hover:text-white hover:bg-purple-700 hover:p-1 hover:animate-bounce active:underline"
               >
-                | Favorites |
+                Favorites
               </Link>
             </li>
 
-            <li className="block text-xl py-2 px-3 md:p-0 text-yellow-500 rounded transition-colors hover:text-purple-600 hover:animate-bounce active:underline">
+            <li className="block text-xl py-2 px-3 md:p-0 text-purple-700 rounded transition-colors hover:text-white hover:p-1 hover:bg-purple-700 hover:animate-bounce active:underline">
               <SpotifyLogin />
             </li>
           </ul>
