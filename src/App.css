@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.find-artist-button {
+  padding: 5px 10px;
+  border: solid black 1px;
+  border-radius: 10px;
+  margin: 20px;
+}
