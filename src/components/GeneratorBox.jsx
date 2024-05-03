@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SearchArtist from "./SearchArtist";
+import RangeButton from "./RangeButton";
 
 const GeneratorBox = () => {
-  const [artistNameInput, setArtistNameInput] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [artistID, setArtistID] = useState("");
+  const [danceMin, setDanceMin] = useState(null);
+  const [danceMax, setDanceMax] = useState(null);
   const [accessToken, setAccessToken] = useState("");
 
-  // Function to fetch the Bearer token from Spotify
   const getAccessToken = async () => {
     const base64Encoded = btoa(
       `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`
@@ -29,56 +31,24 @@ const GeneratorBox = () => {
     }
   };
 
-  // Function to search for artists by name
-  const searchArtist = async () => {
-    try {
-      if (!accessToken) {
-        await getAccessToken(); // Get the token if not available
-      }
-
-      const response = await axios.get(
-        `https://api.spotify.com/v1/search?q=${artistNameInput}&type=artist`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      setSearchResults(response.data.artists.items);
-      console.log(response.data.artists.items);
-    } catch (error) {
-      console.error("Error searching for artists:", error.response.data);
-    }
+  const getDanceability = (min, max) => {
+    setDanceMin(min);
+    setDanceMax(max);
+    console.log(min, max);
   };
 
-  // Function to handle the form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    searchArtist();
+  const getArtistId = (chosenArtistId) => {
+    setArtistID(chosenArtistId);
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={artistNameInput}
-          onChange={(e) => setArtistNameInput(e.target.value)}
-          placeholder="Enter artist name"
-        />
-        <br />
-        <button type="submit">Search</button>
-      </form>
-      <ul>
-        {searchResults.map((artist) => (
-          <li key={artist.id}>
-            {artist.name} <br />
-            <img src={artist.images[0]?.url} alt={artist.name} /> <br />
-            {/* <button onClick={() => getTopTracks(artist.id)}>Get Top Tracks</button> */}
-          </li>
-        ))}
-      </ul>
+      <SearchArtist
+        getArtistId={getArtistId}
+        getAccessToken={getAccessToken}
+        accessToken={accessToken}
+      />
+      <RangeButton getDanceability={getDanceability} />
     </div>
   );
 };
