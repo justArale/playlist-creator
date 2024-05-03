@@ -65,7 +65,7 @@ const RelatedArtists = () => {
   getRelatedArtists();
 
   return (
-    <div className="relatedArtistsContainer">
+    <div className="relatedArtistsContainer mb-4">
       <h2>Related Artists</h2>
       {/* <ul className="imageGallery">
         {searchRelatedArtists &&
@@ -77,7 +77,7 @@ const RelatedArtists = () => {
             </li>
           ))}
       </ul> */}
-      <div className="h-full flex w-full justify-center items-center bg-purple-300 p-2">
+      <div className="h-full flex w-full justify-center items-center bg-purple-300 p-2 mb-8">
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-2 xl:p-6">
           {searchRelatedArtists &&
             searchRelatedArtists.slice(0, 8).map((artist) => (

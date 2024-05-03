@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
+  
   const [artistNameInput, setArtistNameInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
