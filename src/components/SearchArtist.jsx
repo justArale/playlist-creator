@@ -1,34 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const GeneratorBox = () => {
+const SearchArtist = ({ getAccessToken, accessToken }) => {
   const [artistNameInput, setArtistNameInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [accessToken, setAccessToken] = useState("");
   const [selectedArtist, setSelectedArtist] = useState(null);
 
   // Function to fetch the Bearer token from Spotify
-  const getAccessToken = async () => {
-    const base64Encoded = btoa(
-      `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`
-    );
-
-    try {
-      const response = await axios.post(
-        "https://accounts.spotify.com/api/token",
-        "grant_type=client_credentials",
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Basic ${base64Encoded}`,
-          },
-        }
-      );
-      setAccessToken(response.data.access_token);
-    } catch (error) {
-      console.error("Error getting access token:", error);
-    }
-  };
 
   // Function to search for artists by name
   const searchArtist = async () => {
@@ -88,7 +66,9 @@ const GeneratorBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // No need for search, just select the artist if available
-    const selected = searchResults.find(artist => artist.name === artistNameInput);
+    const selected = searchResults.find(
+      (artist) => artist.name === artistNameInput
+    );
     if (selected) {
       handleOptionClick(selected);
     }
@@ -110,7 +90,9 @@ const GeneratorBox = () => {
             placeholder="Enter artist name"
             list="artists" // Associate input with datalist
           />
-          <datalist id="artists"> {/* Datalist for autocomplete options */}
+          <datalist id="artists">
+            {" "}
+            {/* Datalist for autocomplete options */}
             {searchResults.map((artist) => (
               <option
                 key={artist.id}
@@ -120,21 +102,20 @@ const GeneratorBox = () => {
             ))}
           </datalist>
           <br></br>
-          <button type="submit" className="find-artist-button">Choose this Artist</button>
+          <button type="submit" className="find-artist-button">
+            Choose this Artist
+          </button>
         </form>
       )}
       {selectedArtist && (
         <div>
           <p>Selected Artist:</p>
           <p>{selectedArtist.name}</p>
-          <img
-            src={selectedArtist.images[0]?.url}
-            alt={selectedArtist.name}
-          />
+          <img src={selectedArtist.images[0]?.url} alt={selectedArtist.name} />
         </div>
       )}
     </div>
   );
 };
 
-export default GeneratorBox;
+export default SearchArtist;
