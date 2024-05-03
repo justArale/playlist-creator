@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const GeneratorBox = () => {
+const SearchArtist = (props) => {
   const [artistNameInput, setArtistNameInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [accessToken, setAccessToken] = useState("");
@@ -96,6 +96,7 @@ const GeneratorBox = () => {
 
   // Function to set the selected artist when an option is clicked
   const handleOptionClick = (artist) => {
+    props.getArtistId(artist.id)
     getArtistById(artist.id);
   };
 
@@ -137,4 +138,4 @@ const GeneratorBox = () => {
   );
 };
 
-export default GeneratorBox;
+export default SearchArtist;
