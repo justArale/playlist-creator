@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SpotifyLogin from "../components/SpotifyLogin";
 
 function Navbar() {
   return (
@@ -36,7 +37,10 @@ function Navbar() {
                 Favorites
               </Link>
             </li>
+
+<li><SpotifyLogin /></li>
           </ul>
+
         </div>
       </div>
     </nav>

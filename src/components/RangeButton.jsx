@@ -34,27 +34,26 @@ function RangeButton(props) {
 
   // Function to search for tracks by danceability
 
-//   const searchTracks = async () => {
- //    try {
- //      if (!accessToken) {
- //        await getAccessToken(); // Get the token if not available
-//        }
-//  
-//        const response = await axios.get(
-//          `https://api.spotify.com/v1/recommendations?seed_artists=${artistID}&seed_tracks=0c6xIDDpzE81m2q797ordA&min_danceability=${danceMin}&max_danceability=${danceMax}`,
-//          {
-//            headers: {
-//              Authorization: `Bearer ${accessToken}`,
-//            },
-//          }
- //       );
+  //   const searchTracks = async () => {
+  //    try {
+  //      if (!accessToken) {
+  //        await getAccessToken(); // Get the token if not available
+  //        }
+  //
+  //        const response = await axios.get(
+  //          `https://api.spotify.com/v1/recommendations?seed_artists=${artistID}&&min_danceability=${danceMin}&max_danceability=${danceMax}`,
+  //          {
+  //            headers: {
+  //              Authorization: `Bearer ${accessToken}`,
+  //            },
+  //          }
+  //       );
 
   // const searchTracks = async () => {
   //   try {
   //     if (!accessToken) {
   //       await getAccessToken(); // Get the token if not available
   //     }
-
 
   //     const response = await axios.get(
   //       `https://api.spotify.com/v1/recommendations?seed_artists=${artistID}&seed_tracks=0c6xIDDpzE81m2q797ordA&min_danceability=${danceMin}&max_danceability=${danceMax}`,
