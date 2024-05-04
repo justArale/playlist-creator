@@ -6,10 +6,10 @@ export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <div className="flex items-center justify-between border-b border-violet-500 py-1 font-semibold">
+    <div className="flex items-center justify-between border-b border-violet-500 py-1 font-semibold md:py-3">
       <Link
         to="/"
-        className="ml-5 rounded-md bg-violet-900 px-3 py-2 text-xl font-bold text-white hover:animate-bounce active:underline lg:ml-12 lg:px-4 lg:py-3 lg:text-2xl"
+        className="text-md ml-5 rounded-md bg-violet-900 px-2 py-1 font-bold text-white hover:animate-bounce active:underline md:ml-14 lg:ml-20 lg:px-4 lg:py-3 lg:text-xl xl:ml-36 xl:text-2xl"
       >
         Playlist Generator
       </Link>
@@ -17,7 +17,7 @@ export default function Navbar() {
       <nav>
         <section className="MOBILE-MENU flex lg:hidden">
           <div
-            className="HAMBURGER-ICON mr-8 space-y-2"
+            className="HAMBURGER-ICON mr-8 space-y-1 md:space-y-2"
             onClick={() => setIsNavOpen((prev) => !prev)}
           >
             <span className="block h-0.5 w-8 animate-pulse bg-violet-900 lg:h-1"></span>
@@ -58,7 +58,7 @@ export default function Navbar() {
           </div>
         </section>
 
-        <ul className="DESKTOP-MENU hidden space-x-8 lg:mr-10 lg:flex">
+        <ul className="DESKTOP-MENU hidden space-x-8 lg:mr-10 lg:flex xl:mr-16">
           <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
             <Link to="/generator">Create Playlist</Link>
           </li>
