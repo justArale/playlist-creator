@@ -12,7 +12,7 @@ function SpotifyLogin() {
     window.location = `${SPOTIFY_AUTHORIZE_ENDPOINT}client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL_AFTER_LOGIN}&scope=${SCOPES_URL_PARAMS}&response_type=token&show_dialoge=true`;
   };
 
-  return <button onClick={handleLogin}>Spotify Login</button>;
+  return <button onClick={handleLogin}>SPOTIFY LOGIN</button>;
 }
 
 export default SpotifyLogin;
