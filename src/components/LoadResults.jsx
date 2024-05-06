@@ -85,7 +85,6 @@ const addFavoriteSong = (track) => {
     });
 };
 
-
   return (
     <div>
       {/* Display results here */}
