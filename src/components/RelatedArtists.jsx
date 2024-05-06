@@ -4,13 +4,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-<<<<<<< HEAD
-//component rendered in loadResults as follows: <RelatedArtists artistID={artistID} />
-//pass artistID as props
-=======
 // component is loaded in the results page like this: <RelatedArtists artistID={artistID} />
 //artistID comes as props
->>>>>>> 737abbd60888af5f1e038d58585ab576fb47a11e
 const RelatedArtists = ({ artistID }) => {
   const [searchRelatedArtists, setSearchRelatedArtists] = useState([]);
   const [accessToken, setAccessToken] = useState("");
@@ -71,13 +66,8 @@ const RelatedArtists = ({ artistID }) => {
   return (
     <div className="relatedArtistsContainer mb-4">
       <h2>Related Artists</h2>
-<<<<<<< HEAD
-      <div className="h-full flex w-full justify-center items-center bg-purple-300 p-2 mb-8">
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-2 xl:p-6">
-=======
       <div className="mb-8 flex h-full w-full items-center justify-center bg-purple-300 p-2">
         <div className="grid gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 md:p-2 lg:grid-cols-4 xl:p-6">
->>>>>>> 737abbd60888af5f1e038d58585ab576fb47a11e
           {searchRelatedArtists &&
             searchRelatedArtists.slice(0, 8).map((artist) => (
               <a
