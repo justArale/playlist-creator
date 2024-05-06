@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-// component is loaded in the results page like this: <RelatedArtists artistID={artistID} />
-//artistID comes as props
 const RelatedArtists = ({ artistID }) => {
   const [searchRelatedArtists, setSearchRelatedArtists] = useState([]);
   const [accessToken, setAccessToken] = useState("");

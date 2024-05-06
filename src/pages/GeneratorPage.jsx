@@ -4,7 +4,7 @@ import SavePlaylistOnSpotify from "../components/SavePlaylistOnSpotify";
 
 function GeneratorPage() {
   return (
-    <div className="my-60">
+    <div className="generator flex items-center justify-center">
       <GeneratorBox />
       <SavePlaylistOnSpotify />
     </div>
