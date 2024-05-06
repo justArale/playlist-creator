@@ -67,7 +67,7 @@ const GeneratorBox = () => {
       <RangeButton getDanceability={getDanceability} />
       <br></br>
       {linkToResults && (
-        <Link to={linkToResults.pathname} state={linkToResults.state}>
+        <Link to={linkToResults.pathname} state={linkToResults.state} >
           <button className="BtnCreatePlaylist mb-8 mt-2 rounded-xl bg-violet-300 px-5 py-2 text-lg font-semibold uppercase text-violet-900 active:underline md:py-4 md:text-xl xl:text-2xl">
             Create Playlist
           </button>
@@ -78,3 +78,5 @@ const GeneratorBox = () => {
 };
 
 export default GeneratorBox;
+
+/*  window.scrollTo(0, 0); */

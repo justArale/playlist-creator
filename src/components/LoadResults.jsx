@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import RelatedArtists from "./RelatedArtists";
+import SavePlaylistOnSpotify from "./SavePlaylistOnSpotify";
 
 function LoadResults() {
   const location = useLocation();
@@ -94,7 +95,7 @@ const addFavoriteSong = (track) => {
         <div>
           {/* Display results here */}
           <div>
-            <button className="px-3 py-1 border border-black rounded">Save to my Spotify</button>
+            <SavePlaylistOnSpotify results={results}/>
             {results.map((item, index) => ( 
               <div key={index}>
                 {/* Render each item here */}
