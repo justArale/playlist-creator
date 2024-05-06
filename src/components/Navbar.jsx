@@ -1,51 +1,96 @@
 import { Link } from "react-router-dom";
 import SpotifyLogin from "./SpotifyLogin";
+import { useState } from "react";
 
-function Navbar() {
+export default function Navbar() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
   return (
-    <nav className="fixed top-0 w-full bg-gray-50 overflow-hidden">
-      <div className="flex items-center justify-between mx-auto p-4 h-16 max-w-screen-2xl">
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-          {/* <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            class="h-8"
-            alt="Our playlist logo"
-          /> */}
-          <span className="text-2xl font-semibold whitespace-nowrap text-violet-700 mx-4 fixed left-20">
-            <Link to="/">Playlist Generator</Link>
-          </span>
-        </a>
+    <div className="flex items-center justify-between border-b border-violet-500 py-1 font-semibold md:py-3">
+      <Link
+        to="/"
+        className="text-md ml-5 rounded-md bg-violet-900 px-2 py-1 font-bold text-white hover:animate-bounce active:underline md:ml-14 lg:ml-20 lg:px-4 lg:py-3 lg:text-xl xl:ml-36 xl:text-2xl"
+      >
+        Playlist Generator
+      </Link>
 
-        <div
-          className="w-full md:block md:w-auto flex justify-end align-center lg:justify-end"
-          id="navbar-solid-bg"
-        >
-          <ul className="flex font-medium mt-4 rounded-lg bg-gray-50 md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 mr-4 sm:justify-items-start lg:mr-4">
-            <li>
-              {/* <Link
-                to={"/"}
-                className="block text-xl py-2 px-3 md:p-0 text-yellow-500 rounded transition-colors hover:text-purple-600 hover:animate-bounce active:underline"
-              >
-                Home
-              </Link> */}
-            </li>
-            <li>
-              <Link
-                to={"/favorites"}
-                className="block text-xl py-2 px-3 md:p-0 text-yellow-500 rounded transition-colors hover:text-purple-600 hover:animate-bounce active:underline"
-              >
-                | Favorites |
-              </Link>
-            </li>
+      <nav>
+        <section className="MOBILE-MENU flex lg:hidden">
+          <div
+            className="HAMBURGER-ICON mr-8 space-y-1 md:space-y-2"
+            onClick={() => setIsNavOpen((prev) => !prev)}
+          >
+            <span className="block h-0.5 w-8 animate-pulse bg-violet-900 lg:h-1"></span>
+            <span className="block h-0.5 w-8 animate-pulse bg-violet-900 lg:h-1"></span>
+            <span className="block h-0.5 w-8 animate-pulse bg-violet-900 lg:h-1"></span>
+          </div>
 
-            <li className="block text-xl py-2 px-3 md:p-0 text-yellow-500 rounded transition-colors hover:text-purple-600 hover:animate-bounce active:underline">
-              <SpotifyLogin />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+          <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+            <div
+              className="absolute right-0 top-0 px-8 py-4"
+              onClick={() => setIsNavOpen(false)}
+            >
+              <svg
+                className="z-50 mr-0 mt-4 h-8 w-8 text-violet-900"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                fill="none"
+                strokeWidth="2" //do not remove, the svg is built on this stroke, if remove nothing appears
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {/* //this draws the two lines diagonally which will build the X for closing */}
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </div>
+            <ul className="mt-10 flex min-h-[250px] flex-col items-center justify-between px-4">
+              <li className="my-8 uppercase text-violet-700 active:underline">
+                <Link to="/generator">Create Playlist</Link>
+              </li>
+              <li className="my-8 uppercase text-violet-700 active:underline">
+                <Link to="/favorites">Favorites</Link>
+              </li>
+              <li className="my-8 uppercase text-violet-700 active:underline">
+                <Link to="/contact">Spotify Login</Link>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <ul className="DESKTOP-MENU hidden space-x-8 lg:mr-10 lg:flex xl:mr-16">
+          <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
+            <Link to="/generator">Create Playlist</Link>
+          </li>
+          <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
+            <Link to="/favorites">Favorites</Link>
+          </li>
+          <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
+            <SpotifyLogin />
+          </li>
+        </ul>
+      </nav>
+      <style>{`
+      .hideMenuNav {
+        display: none;
+      }
+      .showMenuNav {
+        display: block;
+        position: absolute;
+        width: 25%;
+        height: 30vh;
+        top: 0;
+        right: 0;
+        background: #e1d9f4;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        // border: 1px solid #4c1d95;
+        border-radius: 4%;
+      }
+    `}</style>
+    </div>
   );
 }
-
-export default Navbar;
