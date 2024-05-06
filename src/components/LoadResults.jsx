@@ -95,7 +95,7 @@ const addFavoriteSong = (track) => {
         <div>
           {/* Display results here */}
           <div>
-            <SavePlaylistOnSpotify />
+            <SavePlaylistOnSpotify results={results}/>
             {results.map((item, index) => ( 
               <div key={index}>
                 {/* Render each item here */}
