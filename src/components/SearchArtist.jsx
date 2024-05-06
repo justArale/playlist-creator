@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
-
   const [artistNameInput, setArtistNameInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
@@ -22,7 +21,7 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
 
       setSearchResults(response.data.artists.items);
@@ -44,7 +43,7 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       setSelectedArtist(response.data);
       getArtistId(response.data.id);
@@ -67,7 +66,7 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
     e.preventDefault();
     // No need for search, just select the artist if available
     const selected = searchResults.find(
-      (artist) => artist.name === artistNameInput
+      (artist) => artist.name === artistNameInput,
     );
     if (selected) {
       handleOptionClick(selected);
@@ -76,16 +75,13 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
 
   // Function to set the selected artist when an option is clicked
   const handleOptionClick = (artist) => {
-
     getArtistById(artist.id);
   };
-
- ;
 
   //   getArtistId(selectedArtist.id)
 
   return (
-    <div>
+    <div classname="bg-red-900">
       {!selectedArtist && (
         <form onSubmit={handleSubmit}>
           <input
