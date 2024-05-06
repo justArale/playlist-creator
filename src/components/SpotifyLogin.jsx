@@ -7,9 +7,6 @@ const SPACE = "%20";
 const SCOPES = ["user-read-private", "user-read-email"];
 const SCOPES_URL_PARAMS = SCOPES.join(SPACE);
 
-/* 
-http://localhost:5173/#access_token=BQCR2z45pnGv1WqxF52aOZ7KNbt53IFibv2Q_xNrsMqBzVKKg0hC-Os-xogd0wlOvhkQnzrKMSvVP-usfR4qsZdCuTwjitRz51DRebNGcY_3_nzMexd3bQVrfK9ciyJPEJsyiKNLOYNvjXnRFrIN_Rg34rpGQjsFRq7UuY6dlzqRnzCSFusj8QwXI3TnpP_O1rXhrQ&token_type=Bearer&expires_in=3600
-*/
 
 const getReturnedParamsFromSpotifyAuth = (hash) => {
   const stringAfterHashtag = hash.substring(1);
