@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 //component rendered in loadResults as follows: <RelatedArtists artistID={artistID} />
 //pass artistID as props
 const RelatedArtists = ({ artistID }) => {
-  const artistId = "4kIwETcbpuFgRukE8o7Opx";
   const [searchRelatedArtists, setSearchRelatedArtists] = useState([]);
   const [accessToken, setAccessToken] = useState("");
 
