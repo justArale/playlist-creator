@@ -54,7 +54,7 @@ function SavePlaylistOnSpotify() {
 
     return (
         <div>
-            <button onClick={handleGetPlaylist}>Get Playlists</button>
+             <button className="px-3 py-1 border border-black rounded" onClick={() => {handleGetPlaylist()}}>Save to my Spotify</button>
         </div>
     );
 }

@@ -1,12 +1,11 @@
-//component will need artist iD (seed_1) fetched from artistInput in search
-//this should be rendered in the results page
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const RelatedArtists = ({ artistID }) => {
   const [searchRelatedArtists, setSearchRelatedArtists] = useState([]);
   const [accessToken, setAccessToken] = useState("");
+  const [requestCount, setRequestCount] = useState(0);
 
   // Function to fetch the Bearer token from Spotify
   const getAccessToken = async () => {
@@ -39,19 +38,24 @@ const RelatedArtists = ({ artistID }) => {
         await getAccessToken(); // Get the token if not available
       }
 
-      // The request endpoint is this: /artists/{id}/related-artists
-      const response = await axios.get(
-        `https://api.spotify.com/v1/artists/${artistID}/related-artists`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+      if (requestCount < 10) {
+        // Send request only if request count is less than 10
+        const response = await axios.get(
+          `https://api.spotify.com/v1/artists/${artistID}/related-artists`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           },
-        },
-      );
-      // console.log(response.data.artists, "artist");
-      //   console.log(response, "response");
+        );
 
-      setSearchRelatedArtists(response.data.artists);
+        setSearchRelatedArtists((prevArtists) => [
+          ...prevArtists,
+          ...response.data.artists,
+        ]);
+
+        setRequestCount((prevCount) => prevCount + 1);
+      }
     } catch (error) {
       console.error(
         "Error searching for related artists:",
@@ -59,7 +63,10 @@ const RelatedArtists = ({ artistID }) => {
       );
     }
   };
-  getRelatedArtists();
+
+  useEffect(() => {
+    getRelatedArtists();
+  }, []); // Run once on component mount
 
   return (
     <div className="relatedArtistsContainer mb-4">
