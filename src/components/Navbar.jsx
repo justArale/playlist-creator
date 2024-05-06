@@ -6,7 +6,7 @@ export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <div className="flex items-center justify-between border-b border-violet-500 py-1 font-semibold md:py-3">
+    <div className="flex items-center justify-between border-b border-violet-500 py-1 font-semibold md:py-2">
       <Link
         to="/"
         className="text-md ml-5 rounded-md bg-violet-900 px-2 py-1 font-bold text-white hover:animate-bounce active:underline md:ml-14 lg:ml-20 lg:px-4 lg:py-3 lg:text-xl xl:ml-36 xl:text-2xl"
