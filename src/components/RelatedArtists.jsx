@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+
 const RelatedArtists = ({ artistID }) => {
   const [searchRelatedArtists, setSearchRelatedArtists] = useState([]);
   const [accessToken, setAccessToken] = useState("");
