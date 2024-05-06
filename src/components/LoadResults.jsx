@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import RelatedArtists from "./RelatedArtists";
+import LoadingIcon from "../assets/LoadingIcon.png";
 
 function LoadResults() {
   const location = useLocation();
@@ -10,13 +11,12 @@ function LoadResults() {
   const [accessToken, setAccessToken] = useState("");
   const [loading, setLoading] = useState(true); // Add loading state
 
-
   useEffect(() => {
     const getAccessToken = async () => {
       const base64Encoded = btoa(
-        `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`
+        `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
       );
-  
+
       try {
         const response = await axios.post(
           "https://accounts.spotify.com/api/token",
@@ -26,16 +26,15 @@ function LoadResults() {
               "Content-Type": "application/x-www-form-urlencoded",
               Authorization: `Basic ${base64Encoded}`,
             },
-          }
+          },
         );
         setAccessToken(response.data.access_token);
       } catch (error) {
         console.error("Error getting access token:", error);
       }
     };
-  
+
     getAccessToken();
-  
   }, []);
 
   const loadRecommendations = async () => {
@@ -46,12 +45,12 @@ function LoadResults() {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
 
       setResults(response.data.tracks);
       setLoading(false);
-      console.log(response.data.tracks)
+      console.log(response.data.tracks);
     } catch (error) {
       console.error("Error searching for artists:", error.response.data);
     }
@@ -67,17 +66,26 @@ function LoadResults() {
     <div>
       {/* Display results here */}
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading">
+          <p>Loading your playlist...</p>
+          <img src={LoadingIcon} alt="loading" />
+        </div>
       ) : (
         <div>
           {/* Display results here */}
           <div>
-            {results.map((item, index) => ( 
+            {results.map((item, index) => (
               <div key={index}>
                 {/* Render each item here */}
-                <p>{item.name} - {item.artists[0].name}</p>
+                <p>
+                  {item.name} - {item.artists[0].name}
+                </p>
                 <br></br>
-                {item.preview_url && <audio controls><source src={item.preview_url} type="audio/mpeg" /></audio>}
+                {item.preview_url && (
+                  <audio controls>
+                    <source src={item.preview_url} type="audio/mpeg" />
+                  </audio>
+                )}
               </div>
             ))}
           </div>
