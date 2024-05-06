@@ -7,6 +7,7 @@ function SavePlaylistOnSpotify() {
     const [token, setToken] = useState(localStorage.getItem("accessToken"));
     const [data, setData] = useState({});
     const [userId, setUserId] = useState("");
+    const [playlistId, setPlaylistId] = useState("");
 
     const PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/users/${userId}/playlists`
     const USER_ENDPOINT = `https://api.spotify.com/v1/me`
@@ -38,23 +39,32 @@ function SavePlaylistOnSpotify() {
         }
     }, [token]);
 
-    const handleGetPlaylist = () => {
-        axios.get(PLAYLIST_ENDPOINT, {
-            headers: {
-                Authorization: "Bearer " + token,
+    const createPlaylist = async () => {
+        try {
+          const response = await axios.post(
+            PLAYLIST_ENDPOINT,
+            {
+              name: "My New Playlist",
+              description: "Created from my app",
+              public: true
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
             }
-        })
-        .then((response) => {
-            setData(response.data);
-        })
-        .catch((err) => {
-            console.log("Error getting playlists:", err);
-        });
-    };
+          );
+          setPlaylistId(response.data.id); // Save the new playlist ID for further use
+          console.log('Playlist created successfully!');
+        } catch (error) {
+          console.error('Error creating playlist:', error);
+        }
+      };
 
     return (
         <div>
-             <button className="px-3 py-1 border border-black rounded" onClick={() => {handleGetPlaylist()}}>Save to my Spotify</button>
+             <button className="px-3 py-1 border border-black rounded" onClick={() => {createPlaylist()}}>Save to my Spotify</button>
         </div>
     );
 }
