@@ -1,8 +1,6 @@
 //component will need artist iD (seed_1) fetched from artistInput in search
-//this should be rendered in the results page
 import React, { useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 //component rendered in loadResults as follows: <RelatedArtists artistID={artistID} />
 //pass artistID as props
