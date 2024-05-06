@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const RelatedArtists = () => {
-  // const RelatedArtists = ({ artistId }) => {}
-  // const [artistId, setArtistId] = useState("")
+//component rendered in loadResults as follows: <RelatedArtists artistID={artistID} />
+//pass artistID as props
+const RelatedArtists = ({ artistID }) => {
   const artistId = "4kIwETcbpuFgRukE8o7Opx";
   const [searchRelatedArtists, setSearchRelatedArtists] = useState([]);
   const [accessToken, setAccessToken] = useState("");
@@ -44,7 +44,7 @@ const RelatedArtists = () => {
 
       // The request endpoint is this: /artists/{id}/related-artists
       const response = await axios.get(
-        `https://api.spotify.com/v1/artists/${artistId}/related-artists`,
+        `https://api.spotify.com/v1/artists/${artistID}/related-artists`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -67,16 +67,6 @@ const RelatedArtists = () => {
   return (
     <div className="relatedArtistsContainer mb-4">
       <h2>Related Artists</h2>
-      {/* <ul className="imageGallery">
-        {searchRelatedArtists &&
-          searchRelatedArtists.slice(0, 6).map((artist) => (
-            <li key={artist.id}>
-              <img src={artist.images[0].url} alt={artist.name} />
-              <p>{artist.name}</p>
-              <p>{artist.id}</p>
-            </li>
-          ))}
-      </ul> */}
       <div className="h-full flex w-full justify-center items-center bg-purple-300 p-2 mb-8">
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-2 xl:p-6">
           {searchRelatedArtists &&
