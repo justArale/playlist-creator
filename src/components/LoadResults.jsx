@@ -62,6 +62,28 @@ function LoadResults() {
     }
   }, [accessToken]);
 
+  //Function for Add Favorite Song
+  const addFavoriteSong = (track) => {
+    const backendUrl = "https://playlist-creator-backend.adaptable.app/";
+    const data = {
+      id: track.id,
+      title: track.name,
+      artist: track.artists[0].name,
+    };
+
+    axios
+      .post(`${backendUrl}favoriteSongs`, data)
+      .then((response) => {
+        // Handle the response from the backend
+        console.log("Song added successfully!", response.data);
+        // You can access response data here if needed
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error adding song:", error);
+      });
+  };
+
   return (
     <div>
       {/* Display results here */}
@@ -74,6 +96,9 @@ function LoadResults() {
         <div>
           {/* Display results here */}
           <div>
+            <button className="rounded border border-black px-3 py-1">
+              Save to my Spotify
+            </button>
             {results.map((item, index) => (
               <div key={index}>
                 {/* Render each item here */}
@@ -86,6 +111,14 @@ function LoadResults() {
                     <source src={item.preview_url} type="audio/mpeg" />
                   </audio>
                 )}
+                <button
+                  className="rounded border border-black px-3 py-1"
+                  onClick={() => {
+                    addFavoriteSong(item);
+                  }}
+                >
+                  Add Song to Favorites
+                </button>
               </div>
             ))}
           </div>
