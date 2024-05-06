@@ -42,7 +42,7 @@ const GeneratorBox = () => {
       );
       setAccessToken(response.data.access_token);
     } catch (error) {
-      console.error("Error getting access token:", error);
+      console.log("Error getting access token:", error);
     }
   };
 
