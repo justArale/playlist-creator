@@ -4,6 +4,9 @@ import { useLocation, Link } from "react-router-dom";
 import RelatedArtists from "./RelatedArtists";
 import SavePlaylistOnSpotify from "./SavePlaylistOnSpotify";
 import loadingIcon from "../assets/icons/icon-loading.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function LoadResults() {
   const location = useLocation();
@@ -67,7 +70,9 @@ function LoadResults() {
   }, [accessToken]);
 
   //Function for Add Favorite Song
+
   const addFavoriteSong = (track) => {
+    const notify = () => toast("Song added to favorites!");
     const backendUrl = "https://playlist-creator-backend.adaptable.app/";
     const data = {
       id: track.id,
@@ -86,6 +91,8 @@ function LoadResults() {
         // Handle errors
         console.log("Error adding song:", error);
       });
+
+      notify();
   };
 
   return (
@@ -157,6 +164,7 @@ function LoadResults() {
                   key={index}
                   className="Track Item mb-2 grid max-w-2xl grid-cols-3 items-center gap-1"
                 >
+
                   {/* Render each item here */}
                   <p className="col-span-2 mt-2 text-base text-gray-900">
                     {item.name} - {item.artists[0].name}
@@ -184,6 +192,8 @@ function LoadResults() {
                     💜
                   </button>
                 </div>
+                <ToastContainer />
+
               </div>
             ))}
           </div>
