@@ -1,13 +1,20 @@
 import { Link } from "react-router-dom";
 import SpotifyLogin from "./SpotifyLogin";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logoIcon from "../assets/icons/logo-round.png";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
 
+  useEffect(() => {
+    window.location.hash && setToken(localStorage.getItem("accessToken"))
+  })
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.reload();
+  }
   return (
     <div className="flex items-center justify-between border-b border-violet-500 py-1 font-semibold md:py-2">
       <Link
@@ -54,15 +61,15 @@ export default function Navbar() {
               <li className="my-8 uppercase text-violet-700 active:underline">
                 <Link to="/favorites">Favorites</Link>
               </li>
-              <li>
+              <ul>
       {!token ? (
         <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
           <SpotifyLogin />
         </li>
       ) : (
-        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">Logged in</li>
+        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg" onClick={handleLogout}>Logged in</li>
       )}
-    </li>
+    </ul>
             </ul>
           </div>
         </section>
@@ -74,15 +81,15 @@ export default function Navbar() {
           <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
             <Link to="/favorites">Favorites</Link>
           </li>
-          <li>
+          <ul>
       {!token ? (
         <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
           <SpotifyLogin />
         </li>
       ) : (
-        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">Logged in</li>
+        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg" onClick={handleLogout}>Logged in</li>
       )}
-    </li>
+    </ul>
         </ul>
       </nav>
       <style>{`
