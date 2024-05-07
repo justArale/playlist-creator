@@ -68,7 +68,6 @@ function SavePlaylistOnSpotify({results}) {
       }
     };
 
-
     // const createPlaylist = async () => {
     //   if (!token) {
     //     setIsOverlayOben(true);
