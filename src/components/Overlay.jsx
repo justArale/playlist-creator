@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import "./Overlay.css";
 import overlayImg from '../assets/Graphic.png';
 
-////777//
-
 const CLIENT_ID = `${import.meta.env.VITE_CLIENT_ID}`;
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize?";
 const REDIRECT_URL_AFTER_LOGIN = "http://localhost:5173/results";
