@@ -139,12 +139,13 @@ function LoadResults() {
                         </span>{" "}
                         , with Spotify.
                       </h2>
-                      {/* <Link
-                        to={"/generator"}
-                        className="mb-4 inline-block w-auto rounded-xl border-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
-                      > */}
-                      <SavePlaylistOnSpotify results={results} />
+                      <div
+                        
+                        className="border-0.5 mb-4 inline-block w-auto rounded-full border-transparent bg-violet-900 px-6 py-4 font-bold text-white transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
+                      >
+            <SavePlaylistOnSpotify results={results} />
 
+                      </div>
                       <Link
                         to={"/generator"}
                         className="inline-block w-auto rounded-xl border-transparent bg-gray-200 px-4 py-2 font-bold text-violet-900 transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
@@ -156,8 +157,7 @@ function LoadResults() {
                 </div>
               </div>
             </header>
-
-            <SavePlaylistOnSpotify results={results} />
+              
             {results.map((item, index) => (
               <div className="List items col-1 grid justify-center gap-1 rounded-lg border bg-gray-100 px-4 py-1">
                 <div
