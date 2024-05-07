@@ -64,8 +64,17 @@ const RelatedArtists = ({ artistID }) => {
     }
   };
 
+  // useEffect(() => {
+  //   getRelatedArtists();
+  // }, []); // Run once on component mount
+
   useEffect(() => {
-    getRelatedArtists();
+    const fetchData = async () => {
+      await getAccessToken(); // Get the access token first
+      getRelatedArtists(); // Then fetch related artists
+    };
+
+    fetchData();
   }, []); // Run once on component mount
 
   return (
