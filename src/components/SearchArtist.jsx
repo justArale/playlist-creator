@@ -6,21 +6,22 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
   const minSearchLength = 2; // Minimum search length for the artist name
+  const tokenFromLocalStorage = localStorage.getItem("accessTokenLocal");
 
   // Function to fetch the Bearer token from Spotify
 
   // Function to search for artists by name
   const searchArtist = async () => {
     try {
-      if (!accessToken) {
-        await getAccessToken(); // Get the token if not available
-      }
+    //   if (!accessToken) {
+    //     await getAccessToken(); // Get the token if not available
+    //   }
 
       const response = await axios.get(
         `https://api.spotify.com/v1/search?q=${artistNameInput}&type=artist`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${tokenFromLocalStorage}`,
           },
         },
       );
@@ -34,15 +35,15 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
   // Function to fetch the specific artist by ID
   const getArtistById = async (artistId) => {
     try {
-      if (!accessToken) {
-        await getAccessToken(); // Get the token if not available
-      }
+    //   if (!accessToken) {
+    //     await getAccessToken(); // Get the token if not available
+    //   }
 
       const response = await axios.get(
         `https://api.spotify.com/v1/artists/${artistId}`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${tokenFromLocalStorage}`,
           },
         },
       );
@@ -60,7 +61,6 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
     if (artistNameInput.trim() !== "" && artistNameInput.length >= minSearchLength) {
       searchArtist();
 
-      console.log("In useEffect", artistNameInput);
       localStorage.setItem("artist", artistNameInput);
       //localStorage.setItem("artistImage", artistImage);
     } else {
