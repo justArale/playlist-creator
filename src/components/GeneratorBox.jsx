@@ -12,6 +12,36 @@ const GeneratorBox = () => {
   const [linkToResults, setLinkToResults] = useState(null);
 
   useEffect(() => {
+    const getAccessToken = async () => {
+      const base64Encoded = btoa(
+        `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
+      );
+
+      try {
+        const response = await axios.post(
+          "https://accounts.spotify.com/api/token",
+          "grant_type=client_credentials",
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: `Basic ${base64Encoded}`,
+            },
+          },
+        );
+        setAccessToken(response.data.access_token);
+      } catch (error) {
+        console.log("Error getting access token:", error);
+      }
+    };
+    getAccessToken();  
+  }, []);
+
+  useEffect(() => {
+      localStorage.setItem("accessTokenLocal", accessToken);
+  }, [accessToken])
+
+
+  useEffect(() => {
     if (artistID && danceMin !== null && danceMax !== null) {
       setLinkToResults({
         pathname: "/results",
@@ -24,27 +54,28 @@ const GeneratorBox = () => {
     }
   }, [artistID, danceMin, danceMax]);
 
-  const getAccessToken = async () => {
-    const base64Encoded = btoa(
-      `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
-    );
 
-    try {
-      const response = await axios.post(
-        "https://accounts.spotify.com/api/token",
-        "grant_type=client_credentials",
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Basic ${base64Encoded}`,
-          },
-        },
-      );
-      setAccessToken(response.data.access_token);
-    } catch (error) {
-      console.log("Error getting access token:", error);
-    }
-  };
+  // const getAccessToken = async () => {
+  //   const base64Encoded = btoa(
+  //     `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
+  //   );
+
+  //   try {
+  //     const response = await axios.post(
+  //       "https://accounts.spotify.com/api/token",
+  //       "grant_type=client_credentials",
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //           Authorization: `Basic ${base64Encoded}`,
+  //         },
+  //       },
+  //     );
+  //     setAccessToken(response.data.access_token);
+  //   } catch (error) {
+  //     console.log("Error getting access token:", error);
+  //   }
+  // };
 
   const getDanceability = (min, max) => {
     setDanceMin(min);
@@ -61,8 +92,8 @@ const GeneratorBox = () => {
     <div className="my-8 w-5/6 rounded-2xl bg-gray-100 bg-opacity-80 p-5 text-black shadow-lg backdrop-blur-lg lg:my-8 lg:max-w-5xl lg:py-12">
       <SearchArtist
         getArtistId={getArtistId}
-        getAccessToken={getAccessToken}
-        accessToken={accessToken}
+        // getAccessToken={getAccessToken}
+        // accessToken={accessToken}
       />
       <RangeButton getDanceability={getDanceability} />
       <br></br>
