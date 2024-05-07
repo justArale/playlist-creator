@@ -97,7 +97,7 @@ const RelatedArtists = ({ artistID }) => {
           {searchRelatedArtists &&
             searchRelatedArtists.slice(0, 8).map((artist) => (
               <a
-                href="#"
+                href={`https://open.spotify.com/artist/${artist.id}`}
                 key={artist.id}
                 className="flex items-center justify-center"
               >
