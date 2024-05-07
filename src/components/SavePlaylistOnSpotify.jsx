@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function SavePlaylistOnSpotify({results}) {
@@ -64,6 +66,7 @@ function SavePlaylistOnSpotify({results}) {
       };
 
     useEffect(() => {
+      const notify = () => toast("Playlist is now in your Spotify library!");
       const setTracksToPlaylist = async () => {
         if (!playlistId) return
 
@@ -89,6 +92,7 @@ function SavePlaylistOnSpotify({results}) {
         }
       }
       setTracksToPlaylist();
+      notify();
     }, [playlistId])
 
 
@@ -97,6 +101,7 @@ function SavePlaylistOnSpotify({results}) {
     return (
         <div>
              <button className="px-3 py-1 border border-black rounded" onClick={() => {createPlaylist()}}>Save to my Spotify</button>
+             <ToastContainer />
         </div>
     );
 }
