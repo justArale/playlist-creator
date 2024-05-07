@@ -66,10 +66,12 @@ function Overlay({isOpen, onClose, createPlaylist}) {
             <div className="overlay">
                 <div className="overlay_background" onClick={onClose}/>
                 <div className="overlay-container">
-                    <h3 className="overlay-header">Save Playlist</h3>
-                    <div className="graphics"><img src={overlayImg}/></div>
-                    <p className='overlay-description'>Connect our App with your Spotify account to save your new playlist.</p>
-                    <button className="overlay-button" onClick={handleConnectAndSave}>Connect and save playlist</button>
+                    <div className="overlay__controls">
+                        <h3 className="overlay-header">Save Playlist</h3>
+                        <div className="graphics"><img src={overlayImg}/></div>
+                        <p className='overlay-description'>Connect our App with your Spotify account to save your new playlist.</p>
+                        <button className="overlay-button" onClick={handleConnectAndSave}>Connect and save playlist</button>
+                    </div>
                 </div>
             </div>) 
             : null}
