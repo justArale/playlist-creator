@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SpotifyLogin from "./SpotifyLogin";
 import { useState } from "react";
+import logoIcon from "../assets/icons/logo-round.png";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
