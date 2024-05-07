@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Overlay from './Overlay';
 
 
 function SavePlaylistOnSpotify({results}) {
     const [token, setToken] = useState(localStorage.getItem("accessToken"));
     const [userId, setUserId] = useState("");
     const [playlistId, setPlaylistId] = useState("");
+    const [isOverlayOben, setIsOverlayOben] = useState(false);
 
     const PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/users/${userId}/playlists`
     const TRACK_ENDPOINT = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
@@ -43,26 +45,31 @@ function SavePlaylistOnSpotify({results}) {
     }, [token]);
 
     const createPlaylist = async () => {
-        try {
-          const response = await axios.post(
-            PLAYLIST_ENDPOINT,
-            {
-              name: `${getArtistInput} ${getMoodInput} Playlist`,
-              description: "Created from my app",
-              public: true
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-              }
-            }
-          );
-          setPlaylistId(response.data.id); // Save the new playlist ID for further use
-          console.log('Playlist created successfully!');
-        } catch (error) {
-          console.log('Error creating playlist:', error);
+      if (!token) {
+        setIsOverlayOben(true);
+    } else {
+      try {
+      const response = await axios.post(
+        PLAYLIST_ENDPOINT,
+        {
+          name: `${getArtistInput} ${getMoodInput} Playlist`,
+          description: "Created from my app",
+          public: true
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         }
+      );
+      setPlaylistId(response.data.id); // Save the new playlist ID for further use
+      console.log('Playlist created successfully!');
+    } catch (error) {
+    setShowOverlay(true);
+      console.log('Error creating playlist:', error);
+    }}
+        
       };
 
     useEffect(() => {
@@ -96,12 +103,11 @@ function SavePlaylistOnSpotify({results}) {
     }, [playlistId])
 
 
-
-
     return (
         <div>
-             <button className="px-3 py-1 border border-black rounded" onClick={() => {createPlaylist()}}>Save to my Spotify</button>
-             <ToastContainer />
+             <button className="px-3 py-1" onClick={() => {createPlaylist()}}>+ Save to my Spotify</button>
+             <Overlay isOpen={isOverlayOben} onClose={()=> setIsOverlayOben(!isOverlayOben)} createPlaylist={createPlaylist}/>
+            <ToastContainer />
         </div>
     );
 }

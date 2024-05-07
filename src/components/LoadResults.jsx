@@ -122,12 +122,13 @@ function LoadResults() {
                           {getArtistInput}
                         </span>{" "}
                       </h2>
-                      <Link
-                        to={"/generator"}
+                      <div
+                        
                         className="border-0.5 mb-4 inline-block w-auto rounded-full border-transparent bg-violet-900 px-6 py-4 font-bold text-white transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
                       >
-                        <button>+ Save to your Spotify</button>
-                      </Link>
+            <SavePlaylistOnSpotify results={results} />
+
+                      </div>
                       <Link
                         to={"/generator"}
                         className="border-0.5 mb-4 inline-block w-auto rounded-full border-transparent bg-violet-900 px-6 py-4 font-bold text-white transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
@@ -139,7 +140,6 @@ function LoadResults() {
                 </div>
               </div>
             </header>
-            <SavePlaylistOnSpotify results={results} />
             {results.map((item, index) => (
               <div key={index}>
                 {/* Render each item here */}
