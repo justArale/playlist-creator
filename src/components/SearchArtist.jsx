@@ -57,7 +57,7 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
   useEffect(() => {
     if (artistNameInput.trim() !== "" && artistNameInput.length >= minSearchLength) {
       searchArtist();
-      localStorage.setItem("artist", artistNameInput);
+      localStorage.setItem("artist", artistNameInput)
     } else {
       setSearchResults([]); // Clear results if input is empty or too short
     }
