@@ -5,6 +5,7 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
   const [artistNameInput, setArtistNameInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
+  const minSearchLength = 2; // Minimum search length for the artist name
 
   // Function to fetch the Bearer token from Spotify
 
@@ -56,16 +57,28 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
 
   // Trigger search when artistNameInput changes
   useEffect(() => {
-    if (artistNameInput.trim() !== "") {
+    if (artistNameInput.trim() !== "" && artistNameInput.length >= minSearchLength) {
       searchArtist();
 
       console.log("In useEffect", artistNameInput);
       localStorage.setItem("artist", artistNameInput);
       //localStorage.setItem("artistImage", artistImage);
     } else {
-      setSearchResults([]); // Clear results if input is empty
+      setSearchResults([]); // Clear results if input is empty or too short
     }
   }, [artistNameInput]);
+
+  // useEffect(() => {
+  //   getAccessToken();
+  // }, []); // Run once on component mount
+
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     getRelatedArtists();
+  //   }
+  // }, [accessToken]);
+
+
 
   // Function to handle the form submission
   const handleSubmit = (e) => {

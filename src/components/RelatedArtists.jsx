@@ -68,14 +68,24 @@ const RelatedArtists = ({ artistID }) => {
   //   getRelatedArtists();
   // }, []); // Run once on component mount
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAccessToken(); // Get the access token first
-      getRelatedArtists(); // Then fetch related artists
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await getAccessToken(); // Get the access token first
+  //     getRelatedArtists(); // Then fetch related artists
+  //   };
 
-    fetchData();
+  //   fetchData();
+  // }, []); // Run once on component mount
+
+  useEffect(() => {
+    getAccessToken();
   }, []); // Run once on component mount
+
+  useEffect(() => {
+    if (accessToken) {
+      getRelatedArtists();
+    }
+  }, [accessToken]);
 
   return (
     <div className="relatedArtistsContainer mb-4">
