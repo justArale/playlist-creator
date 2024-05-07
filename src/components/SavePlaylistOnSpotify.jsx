@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import Overlay from './Overlay';
 
-
 function SavePlaylistOnSpotify({results}) {
     const [token, setToken] = useState(localStorage.getItem("accessToken"));
     const [userId, setUserId] = useState("");
