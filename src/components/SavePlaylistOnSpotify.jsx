@@ -12,6 +12,8 @@ function SavePlaylistOnSpotify({results}) {
     const PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/users/${userId}/playlists`
     const TRACK_ENDPOINT = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
     const USER_ENDPOINT = `https://api.spotify.com/v1/me`
+    const getArtistInput = localStorage.getItem("artist")
+    const getMoodInput = localStorage.getItem("mood")
 
     useEffect(() => {
         if (localStorage.getItem("accessToken")) {
@@ -44,7 +46,7 @@ function SavePlaylistOnSpotify({results}) {
           const response = await axios.post(
             PLAYLIST_ENDPOINT,
             {
-              name: "My New Playlist",
+              name: `${getArtistInput} ${getMoodInput} Playlist`,
               description: "Created from my app",
               public: true
             },
@@ -59,7 +61,7 @@ function SavePlaylistOnSpotify({results}) {
           console.log('Playlist created successfully!');
           await setTracksToPlaylist()
         } catch (error) {
-          console.error('Error creating playlist:', error);
+          console.log('Error creating playlist:', error);
         }
       };
 
@@ -85,7 +87,7 @@ function SavePlaylistOnSpotify({results}) {
           );
           console.log('Tracks added successfully!');
         } catch (error) {
-          console.error('Error adding tracks to playlist:', error);
+          console.log('Error adding tracks to playlist:', error);
         }
       };
 

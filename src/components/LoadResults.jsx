@@ -31,7 +31,7 @@ function LoadResults() {
         );
         setAccessToken(response.data.access_token);
       } catch (error) {
-        console.error("Error getting access token:", error);
+        console.log("Error getting access token:", error);
       }
     };
   
@@ -54,7 +54,7 @@ function LoadResults() {
       setLoading(false);
       console.log(response.data.tracks)
     } catch (error) {
-      console.error("Error searching for artists:", error.response.data);
+      console.log("Error searching for artists:", error.response.data);
     }
   };
 
@@ -82,7 +82,7 @@ const addFavoriteSong = (track) => {
     })
     .catch(error => {
         // Handle errors
-        console.error('Error adding song:', error);
+        console.log('Error adding song:', error);
     });
 };
 

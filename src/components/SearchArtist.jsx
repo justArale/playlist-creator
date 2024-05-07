@@ -26,7 +26,7 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
 
       setSearchResults(response.data.artists.items);
     } catch (error) {
-      console.error("Error searching for artists:", error.response.data);
+      console.log("Error searching for artists:", error.response.data);
     }
   };
 
@@ -48,7 +48,7 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
       setSelectedArtist(response.data);
       getArtistId(response.data.id);
     } catch (error) {
-      console.error("Error getting artist by ID:", error.response.data);
+      console.log("Error getting artist by ID:", error.response.data);
     }
   };
 
@@ -56,6 +56,8 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
   useEffect(() => {
     if (artistNameInput.trim() !== "") {
       searchArtist();
+      console.log("In useEffect",artistNameInput)
+      localStorage.setItem("artist", artistNameInput)
     } else {
       setSearchResults([]); // Clear results if input is empty
     }

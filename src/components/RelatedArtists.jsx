@@ -27,7 +27,7 @@ const RelatedArtists = ({ artistID }) => {
 
       setAccessToken(response.data.access_token);
     } catch (error) {
-      console.error("Error getting access token:", error);
+      console.log("Error getting access token:", error);
     }
   };
 
@@ -57,7 +57,7 @@ const RelatedArtists = ({ artistID }) => {
         setRequestCount((prevCount) => prevCount + 1);
       }
     } catch (error) {
-      console.error(
+      console.log(
         "Error searching for related artists:",
         error.response.data,
       );
