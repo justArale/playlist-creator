@@ -3,14 +3,13 @@ import "./Overlay.css";
 import SpotifyLogin from './SpotifyLogin'; // Importiere die SpotifyLogin-Komponente hier
 
 function Overlay({isOpen, onClose, createPlaylist}) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem("accessToken"));
 
     const handleConnectAndSave = () => {
-        if (isLoggedIn) {
+        if (token) {
           createPlaylist();
         } else {
           SpotifyLogin();
-          setIsLoggedIn(true)
         }
       };
 
