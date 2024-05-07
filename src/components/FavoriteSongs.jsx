@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function FavoriteSongs() {
@@ -22,6 +24,7 @@ function FavoriteSongs() {
       }, []);
 
     const deleteFavoriteSong = async (song) => {
+        const notify = () => toast("Song deleted from favorites!");
         const backendUrl = `https://playlist-creator-backend.adaptable.app/favoriteSongs/${song.id}`;
         try {
           await axios.delete(backendUrl);
@@ -31,6 +34,7 @@ function FavoriteSongs() {
         } catch (error) {
           console.error('Error deleting favorite song:', error);
         }
+        notify();
       };
     
     
@@ -42,6 +46,7 @@ function FavoriteSongs() {
                 <button onClick={() => deleteFavoriteSong(song)} className="px-3 py-1 border border-black rounded">Delete Song</button>
             </div>
       ))}
+      <ToastContainer />
     </div>
 
   )
