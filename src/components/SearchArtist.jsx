@@ -68,17 +68,6 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
     }
   }, [artistNameInput]);
 
-  // useEffect(() => {
-  //   getAccessToken();
-  // }, []); // Run once on component mount
-
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     getRelatedArtists();
-  //   }
-  // }, [accessToken]);
-
-
 
   // Function to handle the form submission
   const handleSubmit = (e) => {

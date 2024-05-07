@@ -62,7 +62,8 @@ function LoadResults() {
   };
 
   useEffect(() => {
-    if (accessToken) {
+    console.log(accessToken)
+    if (accessToken) { 
       loadRecommendations();
     }
   }, [accessToken]);
