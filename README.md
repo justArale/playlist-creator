@@ -16,15 +16,15 @@ The Playlist Creator is a web application built with React, utilizing the Spotif
 
 To set up the project locally, follow these steps:
 
-1. Clone the repository: git clone [repository URL]
-2. Install dependencies: cd [project-directory] && npm install
+1. Clone the repository: git clone [\[this repository\]](https://github.com/justArale/playlist-creator)
+2. Install dependencies: cd playlist-creator && npm install
 3. Set up environment variables:
 - Create a `.env` file in the project root.
 - Add `VITE_CLIENT_ID` and `VITE_CLIENT_SECRET` with your Spotify API client ID and secret.
 
-4. Run the development server: npm start
+4. Run the development server: npm run dev
 
-This will run the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This will run the app in development mode. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
 ## Usage
 
@@ -44,6 +44,7 @@ This will run the app in development mode. Open [http://localhost:3000](http://l
 - **React**: For building the user interface.
 - **Axios**: Used for making HTTP requests to the Spotify API.
 - **React Router**: For handling routing within the application.
+- **Seperate Backendserver**: To save your favorite tracks.
 - **Toastify**: For displaying notifications.
 
 ## Contributing
@@ -54,4 +55,4 @@ For major changes, please open an issue first to discuss what you would like to 
 
 ## License
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the MIT License - see the [MIT License](https://github.com/justArale/playlist-creator/blob/main/LICENSE) file for details.
