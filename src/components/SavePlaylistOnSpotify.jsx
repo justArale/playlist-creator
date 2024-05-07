@@ -44,28 +44,28 @@ function SavePlaylistOnSpotify({ results }) {
     }
   }, [token]);
 
-  const createPlaylist = async () => {
-    try {
-      const response = await axios.post(
-        PLAYLIST_ENDPOINT,
-        {
-          name: `${getArtistInput} ${getMoodInput} Playlist`,
-          description: "Created from my app",
-          public: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      setPlaylistId(response.data.id); // Save the new playlist ID for further use
-      console.log("Playlist created successfully!");
-    } catch (error) {
-      console.log("Error creating playlist:", error);
-    }
-  };
+  // const createPlaylist = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       PLAYLIST_ENDPOINT,
+  //       {
+  //         name: `${getArtistInput} ${getMoodInput} Playlist`,
+  //         description: "Created from my app",
+  //         public: true,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       },
+  //     );
+  //     setPlaylistId(response.data.id); // Save the new playlist ID for further use
+  //     console.log("Playlist created successfully!");
+  //   } catch (error) {
+  //     console.log("Error creating playlist:", error);
+  //   }
+  // };
 
 
     const createPlaylist = async () => {
@@ -96,37 +96,34 @@ function SavePlaylistOnSpotify({ results }) {
         
       };
 
-  useEffect(() => {
-    const notify = () => toast("Playlist is now in your Spotify library!");
-    const setTracksToPlaylist = async () => {
-      if (!playlistId) return;
-
-
-      const trackURIs = results.map((track) => track.uri);
-      console.log(results);
-      try {
-        await axios.post(
-          TRACK_ENDPOINT,
-          {
-            uris: trackURIs, // Pass the array directly
-            position: 0,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        console.log("Tracks added successfully!");
-      } catch (error) {
-        console.log("Error adding tracks to playlist:", error);
-      }
-
-      setTracksToPlaylist();
-      notify();
-    }, [playlistId])
-
+      useEffect(() => {
+        const setTracksToPlaylist = async () => {
+          if (!playlistId) return
+  
+          const trackURIs = results.map(track => track.uri)
+          console.log(results)
+          try {
+            await axios.post(
+              TRACK_ENDPOINT,
+              {
+                  uris: trackURIs, // Pass the array directly
+                  position: 0
+                },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+                }
+              }
+            );
+            console.log('Tracks added successfully!');
+          } catch (error) {
+            console.log('Error adding tracks to playlist:', error);
+          }
+        }
+        setTracksToPlaylist();
+      }, [playlistId])
+  
 
     return (
         <div>
