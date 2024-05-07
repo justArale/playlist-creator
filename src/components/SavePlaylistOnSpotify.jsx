@@ -98,12 +98,12 @@ function SavePlaylistOnSpotify({ results }) {
   return (
     <div>
       <button
-        className="rounded border border-black px-3 py-1"
+        className="my-3 rounded-xl bg-gradient-to-r from-fuchsia-600 to-pink-600 px-3 py-2 text-lg text-gray-100 md:mb-5 md:px-5 md:py-3 md:text-3xl"
         onClick={() => {
           createPlaylist();
         }}
       >
-        Save to my Spotify
+        + SAVE TO MY SPOTIFY
       </button>
       <ToastContainer />
     </div>
