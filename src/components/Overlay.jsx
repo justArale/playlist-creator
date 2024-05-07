@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Overlay.css";
 import SpotifyLogin from './SpotifyLogin'; // Importiere die SpotifyLogin-Komponente hier
+import overlayImg from '../assets/Graphic.png';
 
 function Overlay({isOpen, onClose, createPlaylist}) {
     const [token, setToken] = useState(localStorage.getItem("accessToken"));
@@ -13,6 +14,19 @@ function Overlay({isOpen, onClose, createPlaylist}) {
         }
       };
 
+      useEffect(() => {
+        // Füge einen Event-Listener hinzu, um das Overlay zu schließen, wenn außerhalb geklickt wird
+        const handleClickOutside = (event) => {
+            if (isOpen && !event.target.closest(".overlay-container")) {
+                onClose();
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen, onClose]);
+
     return (
         <> 
         {isOpen ? (
@@ -20,8 +34,8 @@ function Overlay({isOpen, onClose, createPlaylist}) {
                 <div className="overlay_background" onClick={onClose}/>
                 <div className="overlay-container">
                     <h3 className="overlay-header">Save Playlist</h3>
-                    <div className="graphics"><img src="../assets/overlay-graphics/Graphic.png"/></div>
-                    <p>Connect our App with your Spotify account to save your new playlist.</p>
+                    <div className="graphics"><img src={overlayImg}/></div>
+                    <p className='overlay-description'>Connect our App with your Spotify account to save your new playlist.</p>
                     <button className="overlay-button" onClick={handleConnectAndSave}>Connect and save playlist</button>
                 </div>
             </div>) 

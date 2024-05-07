@@ -150,7 +150,7 @@ function LoadResults() {
                         to={"/generator"}
                         className="inline-block w-auto rounded-xl border-transparent bg-gray-200 px-4 py-2 font-bold text-violet-900 transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
                       >
-                        <button>Crate new playlist</button>
+                        <button>Create new playlist</button>
                       </Link>
                     </div>
                   </div>
