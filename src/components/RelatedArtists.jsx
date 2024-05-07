@@ -57,25 +57,9 @@ const RelatedArtists = ({ artistID }) => {
         setRequestCount((prevCount) => prevCount + 1);
       }
     } catch (error) {
-      console.log(
-        "Error searching for related artists:",
-        error.response.data,
-      );
+      console.log("Error searching for related artists:", error.response.data);
     }
   };
-
-  // useEffect(() => {
-  //   getRelatedArtists();
-  // }, []); // Run once on component mount
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await getAccessToken(); // Get the access token first
-  //     getRelatedArtists(); // Then fetch related artists
-  //   };
-
-  //   fetchData();
-  // }, []); // Run once on component mount
 
   useEffect(() => {
     getAccessToken();
@@ -89,9 +73,11 @@ const RelatedArtists = ({ artistID }) => {
 
   return (
     <div className="relatedArtistsContainer mb-4">
-      <h2>Related Artists</h2>
-      <div className="mb-8 flex h-full w-full items-center justify-center bg-purple-300 p-2">
-        <div className="grid gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 md:p-2 lg:grid-cols-4 xl:p-6">
+      <h2 className="mb-6 font-bold text-violet-900 sm:text-2xl md:text-3xl lg:text-4xl">
+        Related Artists
+      </h2>
+      <div className="mb-8 flex h-full w-full items-center justify-center bg-purple-300 p-2 md:py-10">
+        <div className="grid gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 md:p-2 lg:grid-cols-4 lg:gap-6 xl:p-6">
           {searchRelatedArtists &&
             searchRelatedArtists.slice(0, 8).map((artist) => (
               <a

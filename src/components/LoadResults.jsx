@@ -98,19 +98,19 @@ function LoadResults() {
     <div className="Results">
       {/* Display results here */}
       {loading ? (
-        <div className="loading flex items-center justify-center">
-          <p>Loading...</p>
+        <div className="loading flex flex-col justify-center">
+          <p className="mt-8 text-xl ">Your playlist is loading...</p>
           <br></br>
           <img
             src={loadingIcon}
             alt="loading"
-            className="w-2xl animate-spin justify-center delay-300"
+            className="w-xl animate-spin items-center self-center delay-700"
           />
         </div>
       ) : (
         <div className="resultsPageAfterLoading">
           {/* Display results here */}
-          <div className="resultsPage">
+          <div className="resultsPage flex flex-col justify-center">
             <header className="mb-6 h-5/6 bg-gray-900 bg-cover bg-center bg-no-repeat font-semibold md:h-3/4 lg:h-2/5">
               <div className="flex w-5/6 items-center py-4 pl-2 text-left sm:h-3/4 md:h-3/4 lg:py-20 xl:py-12">
                 <div className="ml-3 mt-4 justify-center text-left">
@@ -147,49 +147,56 @@ function LoadResults() {
                 </div>
               </div>
             </header>
-
-            <div className="resultsList container mb-4 flex flex-col justify-center rounded-lg border bg-gray-100 px-4 py-4">
+            <div className="resultsList mb-10 max-w-md self-center rounded-2xl border border-b-8 border-violet-900 bg-gray-200 p-4 shadow-md dark:border-gray-200">
+              <div className="mb-4 flex items-center justify-center">
+                <h3 className="self-center border-b-4 border-violet-900 pb-4 text-xl font-bold leading-none text-violet-900">
+                  Your new plalist
+                </h3>
+              </div>
               {results.map((item, index) => (
-                <div
-                  key={index}
-                  className="Track Item content-even md:min-h-1/2 mb-3 flex max-w-4xl flex-col justify-center overflow-hidden rounded-xl bg-white px-4 md:ml-8 md:max-w-2xl"
-                >
-                  <div className="col-span-2 grid justify-around">
-                    <div className="flex content-evenly items-center">
-                      {/* New nested flex container for horizontal alignment */}
-                      <p className="mt-2 text-base text-gray-900 md:text-2xl">
-                        {item.name} - {item.artists[0].name}
-                      </p>
-                      <button
-                        className="mx-2 my-3 rounded-full border border-gray-900 px-2 py-1 hover:bg-violet-900 focus:bg-violet-900 active:bg-violet-900 md:mx-5 md:px-3 md:py-2"
-                        onClick={() => {
-                          addFavoriteSong(item);
-                        }}
-                      >
-                        💜
-                      </button>
-                    </div>
-                  </div>
-
-                  {item.preview_url && (
-                    <audio
-                      controls
-                      className="mb-4 items-center justify-center self-center py-2 md:px-1 md:text-5xl"
-                    >
-                      {" "}
-                      {/* Adjust audio position if needed */}
-                      <source src="{item.preview_url}" type="audio/mpeg" />
-                    </audio>
-                  )}
-
-                  <ToastContainer />
+                <div key={index} className="Track Item flow-root">
+                  <ul
+                    role="list"
+                    className="divide-y divide-gray-700 bg-gray-100"
+                  >
+                    <li className=" my-2 ml-6 self-center py-3 text-left sm:py-4">
+                      <div className="flex items-center space-x-4 self-center">
+                        <div className="min-w-0 flex-1 self-center">
+                          <p className="self-center truncate text-lg font-medium text-gray-900">
+                            {item.artists[0].name}
+                          </p>
+                          <p className="truncate text-lg text-gray-700">
+                            {item.name}
+                          </p>
+                        </div>
+                        <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                          <button
+                            className="mx-2 my-3 rounded-full border border-violet-900 px-2 py-1 hover:bg-violet-900 focus:bg-violet-900 active:bg-violet-900 md:mx-5 md:px-3 md:py-2"
+                            onClick={() => {
+                              addFavoriteSong(item);
+                            }}
+                          >
+                            💜
+                          </button>
+                        </div>
+                      </div>
+                      {item.preview_url && (
+                        <li>
+                          <audio controls className="w-full">
+                            <source src={item.preview_url} type="audio/mpeg" />
+                          </audio>
+                        </li>
+                      )}
+                    </li>
+                  </ul>
                 </div>
               ))}
+              <ToastContainer />
             </div>
           </div>
-          <RelatedArtists artistID={artistID} />
         </div>
       )}
+      <RelatedArtists artistID={artistID} />
     </div>
   );
 }
