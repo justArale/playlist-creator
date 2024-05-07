@@ -3,6 +3,8 @@ import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import RelatedArtists from "./RelatedArtists";
 import SavePlaylistOnSpotify from "./SavePlaylistOnSpotify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoadResults() {
   const location = useLocation();
@@ -66,7 +68,9 @@ function LoadResults() {
   }, [accessToken]);
 
   //Function for Add Favorite Song
+
   const addFavoriteSong = (track) => {
+    const notify = () => toast("Song added to favorites!");
     const backendUrl = "https://playlist-creator-backend.adaptable.app/";
     const data = {
       id: track.id,
@@ -85,6 +89,8 @@ function LoadResults() {
         // Handle errors
         console.log("Error adding song:", error);
       });
+
+      notify();
   };
 
   return (
@@ -154,6 +160,7 @@ function LoadResults() {
                 >
                   Add Song to Favorites
                 </button>
+                <ToastContainer />
               </div>
             ))}
           </div>
