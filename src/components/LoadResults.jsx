@@ -11,37 +11,39 @@ function LoadResults() {
   const location = useLocation();
   const { artistID, danceMin, danceMax } = location.state;
   const [results, setResults] = useState([]);
-  const [accessToken, setAccessToken] = useState("");
+//   const [accessToken, setAccessToken] = useState("");
   const [loading, setLoading] = useState(true); // Add loading state
   const getArtistInput = localStorage.getItem("artist");
   const getMoodInput = localStorage.getItem("mood");
   const getArtistImage = localStorage.getItem("artistImage");
+  const tokenFromLocalStorage = localStorage.getItem("accessTokenLocal");
 
-  useEffect(() => {
-    const getAccessToken = async () => {
-      const base64Encoded = btoa(
-        `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
-      );
 
-      try {
-        const response = await axios.post(
-          "https://accounts.spotify.com/api/token",
-          "grant_type=client_credentials",
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              Authorization: `Basic ${base64Encoded}`,
-            },
-          },
-        );
-        setAccessToken(response.data.access_token);
-      } catch (error) {
-        console.log("Error getting access token:", error);
-      }
-    };
+//   useEffect(() => {
+//     const getAccessToken = async () => {
+//       const base64Encoded = btoa(
+//         `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
+//       );
 
-    getAccessToken();
-  }, []);
+//       try {
+//         const response = await axios.post(
+//           "https://accounts.spotify.com/api/token",
+//           "grant_type=client_credentials",
+//           {
+//             headers: {
+//               "Content-Type": "application/x-www-form-urlencoded",
+//               Authorization: `Basic ${base64Encoded}`,
+//             },
+//           },
+//         );
+//         setAccessToken(response.data.access_token);
+//       } catch (error) {
+//         console.log("Error getting access token:", error);
+//       }
+//     };
+
+//     getAccessToken();
+//   }, []);
 
   const loadRecommendations = async () => {
     try {
@@ -49,7 +51,7 @@ function LoadResults() {
         `https://api.spotify.com/v1/recommendations?limit=30&seed_artists=${artistID}&min_danceability=${danceMin}&max_danceability=${danceMax}`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${tokenFromLocalStorage}`,
           },
         },
       );
@@ -63,10 +65,8 @@ function LoadResults() {
   };
 
   useEffect(() => {
-    if (accessToken) {
-      loadRecommendations();
-    }
-  }, [accessToken]);
+    loadRecommendations();
+  }, []);
 
   //Function for Add Favorite Song
 
@@ -135,6 +135,7 @@ function LoadResults() {
                         </span>{" "}
                         , with Spotify.
                       </h2>
+
                       {/* <img
                           src={getArtistImage}
                           alt="artist image"

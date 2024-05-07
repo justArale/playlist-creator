@@ -4,39 +4,41 @@ import { useParams } from "react-router-dom";
 
 const RelatedArtists = ({ artistID }) => {
   const [searchRelatedArtists, setSearchRelatedArtists] = useState([]);
-  const [accessToken, setAccessToken] = useState("");
+  // const [accessToken, setAccessToken] = useState("");
   const [requestCount, setRequestCount] = useState(0);
+  const tokenFromLocalStorage = localStorage.getItem("accessTokenLocal");
+
 
   // Function to fetch the Bearer token from Spotify
-  const getAccessToken = async () => {
-    const base64Encoded = btoa(
-      `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
-    );
+  // const getAccessToken = async () => {
+  //   const base64Encoded = btoa(
+  //     `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
+  //   );
 
-    try {
-      const response = await axios.post(
-        "https://accounts.spotify.com/api/token",
-        "grant_type=client_credentials",
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Basic ${base64Encoded}`,
-          },
-        },
-      );
+  //   try {
+  //     const response = await axios.post(
+  //       "https://accounts.spotify.com/api/token",
+  //       "grant_type=client_credentials",
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //           Authorization: `Basic ${base64Encoded}`,
+  //         },
+  //       },
+  //     );
 
-      setAccessToken(response.data.access_token);
-    } catch (error) {
-      console.log("Error getting access token:", error);
-    }
-  };
+  //     setAccessToken(response.data.access_token);
+  //   } catch (error) {
+  //     console.log("Error getting access token:", error);
+  //   }
+  // };
 
   // Function to search related artists based on artist id
   const getRelatedArtists = async () => {
     try {
-      if (!accessToken) {
-        await getAccessToken(); // Get the token if not available
-      }
+      // if (!accessToken) {
+      //   await getAccessToken(); // Get the token if not available
+      // }
 
       if (requestCount < 10) {
         // Send request only if request count is less than 10
@@ -44,7 +46,7 @@ const RelatedArtists = ({ artistID }) => {
           `https://api.spotify.com/v1/artists/${artistID}/related-artists`,
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${tokenFromLocalStorage}`,
             },
           },
         );
@@ -62,14 +64,14 @@ const RelatedArtists = ({ artistID }) => {
   };
 
   useEffect(() => {
-    getAccessToken();
+    getRelatedArtists();
   }, []); // Run once on component mount
 
-  useEffect(() => {
-    if (accessToken) {
-      getRelatedArtists();
-    }
-  }, [accessToken]);
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     getRelatedArtists();
+  //   }
+  // }, [accessToken]);
 
   return (
     <div className="relatedArtistsContainer mb-4">
@@ -81,7 +83,7 @@ const RelatedArtists = ({ artistID }) => {
           {searchRelatedArtists &&
             searchRelatedArtists.slice(0, 8).map((artist) => (
               <a
-                href="#"
+                href={`https://open.spotify.com/artist/${artist.id}`}
                 key={artist.id}
                 className="flex items-center justify-center"
               >
