@@ -1,109 +1,113 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+function SavePlaylistOnSpotify({ results }) {
+  const [token, setToken] = useState(localStorage.getItem("accessToken"));
+  const [userId, setUserId] = useState("");
+  const [playlistId, setPlaylistId] = useState("");
 
-function SavePlaylistOnSpotify({results}) {
-    const [token, setToken] = useState(localStorage.getItem("accessToken"));
-    const [userId, setUserId] = useState("");
-    const [playlistId, setPlaylistId] = useState("");
+  const PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/users/${userId}/playlists`;
+  const TRACK_ENDPOINT = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+  const USER_ENDPOINT = `https://api.spotify.com/v1/me`;
+  const getArtistInput = localStorage.getItem("artist");
+  const getMoodInput = localStorage.getItem("mood");
 
-    const PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/users/${userId}/playlists`
-    const TRACK_ENDPOINT = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
-    const USER_ENDPOINT = `https://api.spotify.com/v1/me`
-    const getArtistInput = localStorage.getItem("artist")
-    const getMoodInput = localStorage.getItem("mood")
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setToken(localStorage.getItem("accessToken"));
+    }
+  }, [token]);
 
-    useEffect(() => {
-        if (localStorage.getItem("accessToken")) {
-            setToken(localStorage.getItem("accessToken"));
-        }
-    }, [token]);
+  const getUserInfo = () => {
+    axios
+      .get(USER_ENDPOINT, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        setUserId(response.data.id);
+      })
+      .catch((err) => {
+        console.log("Error getting user info:", err);
+      });
+  };
 
-    const getUserInfo = () => {
-        axios.get(USER_ENDPOINT, {
+  useEffect(() => {
+    if (token) {
+      getUserInfo();
+    }
+  }, [token]);
+
+  const createPlaylist = async () => {
+    try {
+      const response = await axios.post(
+        PLAYLIST_ENDPOINT,
+        {
+          name: `${getArtistInput} ${getMoodInput} Playlist`,
+          description: "Created from my app",
+          public: true,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      setPlaylistId(response.data.id); // Save the new playlist ID for further use
+      console.log("Playlist created successfully!");
+    } catch (error) {
+      console.log("Error creating playlist:", error);
+    }
+  };
+
+  useEffect(() => {
+    const notify = () => toast("Playlist is now in your Spotify library!");
+    const setTracksToPlaylist = async () => {
+      if (!playlistId) return;
+
+      const trackURIs = results.map((track) => track.uri);
+      console.log(results);
+      try {
+        await axios.post(
+          TRACK_ENDPOINT,
+          {
+            uris: trackURIs, // Pass the array directly
+            position: 0,
+          },
+          {
             headers: {
-                Authorization: "Bearer " + token,
-            }
-        })
-        .then((response) => {
-            setUserId(response.data.id);
-        })
-        .catch((err) => {
-            console.log("Error getting user info:", err);
-        });
-    };
-
-    useEffect(() => {
-        if (token) {
-            getUserInfo();
-        }
-    }, [token]);
-
-    const createPlaylist = async () => {
-        try {
-          const response = await axios.post(
-            PLAYLIST_ENDPOINT,
-            {
-              name: `${getArtistInput} ${getMoodInput} Playlist`,
-              description: "Created from my app",
-              public: true
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
             },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-              }
-            }
-          );
-          setPlaylistId(response.data.id); // Save the new playlist ID for further use
-          console.log('Playlist created successfully!');
-        } catch (error) {
-          console.log('Error creating playlist:', error);
-        }
-      };
-
-    useEffect(() => {
-      const notify = () => toast("Playlist is now in your Spotify library!");
-      const setTracksToPlaylist = async () => {
-        if (!playlistId) return
-
-        const trackURIs = results.map(track => track.uri)
-        console.log(results)
-        try {
-          await axios.post(
-            TRACK_ENDPOINT,
-            {
-                uris: trackURIs, // Pass the array directly
-                position: 0
-              },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-              }
-            }
-          );
-          console.log('Tracks added successfully!');
-        } catch (error) {
-          console.log('Error adding tracks to playlist:', error);
-        }
+          },
+        );
+        console.log("Tracks added successfully!");
+      } catch (error) {
+        console.log("Error adding tracks to playlist:", error);
       }
-      setTracksToPlaylist();
-      notify();
-    }, [playlistId])
+    };
+    setTracksToPlaylist();
+    notify();
+  }, [playlistId]);
 
-
-
-
-    return (
-        <div>
-             <button className="px-3 py-1 border border-black rounded" onClick={() => {createPlaylist()}}>Save to my Spotify</button>
-             <ToastContainer />
-        </div>
-    );
+  return (
+    <div>
+      <button
+        className="rounded border border-black px-3 py-1"
+        onClick={() => {
+          createPlaylist();
+        }}
+      >
+        Save to my Spotify
+      </button>
+      <ToastContainer />
+    </div>
+  );
 }
 
 export default SavePlaylistOnSpotify;

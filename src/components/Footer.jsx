@@ -2,7 +2,7 @@
 
 function Footer() {
   return (
-    <footer className="inset-x-0 bottom-0 w-full justify-center bg-white p-3 text-center text-sm text-gray-900">
+    <footer className="inset-x-0 bottom-0 mb-2 w-full justify-center bg-white px-3 py-2 text-center text-sm text-gray-900">
       {/* <div className="w-full bg-white text-gray-900 text-center justify-center"> */}
       <a href="https://github.com/justArale/playlist-creator">
         playlist-creator{" | "}
