@@ -4,9 +4,8 @@ import { useLocation, Link } from "react-router-dom";
 import RelatedArtists from "./RelatedArtists";
 import SavePlaylistOnSpotify from "./SavePlaylistOnSpotify";
 import loadingIcon from "../assets/icons/icon-loading.png";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoadResults() {
   const location = useLocation();
@@ -92,63 +91,60 @@ function LoadResults() {
         console.log("Error adding song:", error);
       });
 
-      notify();
+    notify();
   };
 
   return (
-    <div>
+    <div className="Results">
       {/* Display results here */}
       {loading ? (
-        <div className="loading flex items-center justify-center">
-          <p>Loading...</p>
+        <div className="loading flex flex-col justify-center">
+          <p className="mt-8 text-xl ">Your playlist is loading...</p>
           <br></br>
           <img
             src={loadingIcon}
             alt="loading"
-            className="w-2xl animate-spin justify-center delay-300"
+            className="w-xl animate-spin items-center self-center delay-700"
           />
         </div>
       ) : (
-        <div>
+        <div className="resultsPageAfterLoading">
           {/* Display results here */}
-          <div className="resultsPage">
+          <div className="resultsPage flex flex-col justify-center">
             <header
-              className="mb-6 h-5/6 bg-gray-900 bg-cover bg-center bg-no-repeat font-semibold md:h-5/6 lg:h-2/5"
-              // style={{ backgroundImage: `url(${getArtistImage})` }}
+              className="mb-6 h-5/6 bg-gray-900 bg-cover bg-center bg-no-repeat font-semibold md:h-3/4 lg:h-2/5 "
+              style={{
+                backgroundImage: `url(${getArtistImage})`,
+              }}
             >
-              <div className="flex w-5/6 items-center py-4 pl-2 text-left sm:h-3/4 md:h-5/6 lg:py-20 xl:py-12">
+              <div className="flex w-5/6 items-center py-4 pl-2 text-left sm:h-3/4 md:h-3/4 lg:py-20 xl:py-12 ">
                 <div className="ml-3 mt-4 justify-center text-left">
                   <div className="col-1 container mx-auto grid items-center justify-center px-6">
-                    <img
-                      src={getArtistImage}
-                      alt="artist image"
-                      className="mb-8 rounded-2xl shadow-lg"
-                    />
-                    <div className="mx-auto mb-8 max-w-2xl text-left sm:max-w-xl md:ml-10 md:max-w-md md:pl-4 lg:max-w-2xl xl:ml-28 xl:max-w-3xl xl:py-20">
-                      <span className="text-sm font-semibold uppercase tracking-widest text-gray-200 md:text-lg">
+                    <div className="mx-auto mb-8 max-w-2xl text-left sm:max-w-xl md:ml-10 md:max-w-md md:pl-4 lg:max-w-4xl xl:ml-28 xl:max-w-3xl xl:py-20 ">
+                      <span className="text-sm font-semibold uppercase tracking-widest text-gray-200 md:text-xl lg:ml-8 lg:text-2xl">
                         Your new playlist
                       </span>
-                      <h2 className="mb-6 mt-6 text-2xl font-bold text-gray-100 sm:text-4xl md:mt-8 md:py-6 md:text-4xl md:leading-relaxed lg:mb-4 lg:mt-4 lg:py-6 lg:text-4xl xl:mb-12 xl:mt-10 xl:py-4 xl:text-5xl">
+                      <h2 className="mb-6 mt-6 font-bold text-gray-100 sm:text-5xl md:mt-8 md:py-6 md:text-5xl md:leading-relaxed lg:mb-4 lg:ml-8 lg:mt-2  lg:text-5xl xl:mb-12 xl:mt-10 xl:py-4 xl:text-5xl">
                         Here is your{" "}
-                        <span className="text-purple-400 underline">
+                        <span className="text-lime-200 underline">
                           {getMoodInput}
                         </span>{" "}
                         mood playlist, inspired by{" "}
-                        <span className="text-pink-400 underline">
+                        <span className="text-pink-700 underline">
                           {getArtistInput}
                         </span>{" "}
                         , with Spotify.
                       </h2>
-                      <div
-                        
-                        className="border-0.5 mb-4 inline-block w-auto rounded-full border-transparent bg-violet-900 px-6 py-4 font-bold text-white transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
-                      >
-            <SavePlaylistOnSpotify results={results} />
 
-                      </div>
+                      {/* <img
+                          src={getArtistImage}
+                          alt="artist image"
+                          className="m-8 rounded-xl shadow-lg md:mb-10 md:ml-12 md:mt-10 md:max-w-md lg:mb-6 lg:ml-24 lg:max-w-lg"
+                        /> */}
+                      <SavePlaylistOnSpotify results={results} />
                       <Link
                         to={"/generator"}
-                        className="inline-block w-auto rounded-xl border-transparent bg-gray-200 px-4 py-2 font-bold text-violet-900 transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
+                        className="inline-block w-auto rounded-xl border-transparent bg-gray-200 px-4 py-2 font-bold text-violet-900 transition duration-200 hover:bg-violet-500 md:mr-6 md:mt-4 md:w-auto md:px-5 md:py-4 md:text-2xl lg:ml-8 lg:px-7 lg:py-4 lg:text-2xl xl:mb-0"
                       >
                         <button>Create new playlist</button>
                       </Link>
@@ -157,45 +153,52 @@ function LoadResults() {
                 </div>
               </div>
             </header>
-              
-            {results.map((item, index) => (
-              <div className="List items col-1 grid justify-center gap-1 rounded-lg border bg-gray-100 px-4 py-1">
-                <div
-                  key={index}
-                  className="Track Item mb-2 grid max-w-2xl grid-cols-3 items-center gap-1"
-                >
-
-                  {/* Render each item here */}
-                  <p className="col-span-2 mt-2 text-base text-gray-900">
-                    {item.name} - {item.artists[0].name}
-                  </p>
-                  <button
-                    className="mb-2 rounded border border-gray-900  py-1"
-                    onClick={() => {
-                      addFavoriteSong(item);
-                    }}
-                  >
-                    💜
-                  </button>
-                  <br></br>
-                  {item.preview_url && (
-                    <audio controls>
-                      <source src={item.preview_url} type="audio/mpeg" />
-                    </audio>
-                  )}
-                  <button
-                    className="mb-5 rounded border border-gray-900 px-3 py-1"
-                    onClick={() => {
-                      addFavoriteSong(item);
-                    }}
-                  >
-                    💜
-                  </button>
-                </div>
-                <ToastContainer />
-
+            <div className="resultsList mb-10 rounded-2xl border border-b-8 border-violet-900 bg-gray-200 p-6 shadow-md sm:max-w-sm md:max-w-md md:self-center lg:mb-20 lg:max-w-5xl lg:border-b-8">
+              <div className="mb-4 flex items-center justify-center">
+                <h3 className="self-center border-b-4 border-violet-900 pb-4 text-xl font-bold leading-none text-violet-900 md:text-2xl lg:my-4 lg:border-b-8 lg:text-2xl ">
+                  Your new playlist
+                </h3>
               </div>
-            ))}
+              {results.map((item, index) => (
+                <div key={index} className="Track Item flow-root">
+                  <ul
+                    role="list"
+                    className="divide-y divide-gray-700 rounded-md bg-gray-100 lg:rounded-xl"
+                  >
+                    <li className="my-1 ml-2 self-center py-2 text-left md:ml-6 md:py-3 lg:my-1 lg:py-2">
+                      <div className="flex items-center space-x-4 self-center">
+                        <div className="min-w-0 flex-1 self-center">
+                          <p className="self-center truncate text-lg font-medium text-gray-900 lg:text-xl">
+                            {item.artists[0].name}
+                          </p>
+                          <p className="truncate text-lg text-gray-700 lg:text-xl">
+                            {item.name}
+                          </p>
+                        </div>
+                        <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                          <button
+                            className="mx-2 my-3 rounded-full border border-violet-900 px-2 py-1 hover:bg-violet-900 focus:bg-violet-900 active:bg-violet-900 md:mx-5 md:px-3 md:py-2"
+                            onClick={() => {
+                              addFavoriteSong(item);
+                            }}
+                          >
+                            💜
+                          </button>
+                        </div>
+                      </div>
+                      {item.preview_url && (
+                        <li>
+                          <audio controls className="w-full">
+                            <source src={item.preview_url} type="audio/mpeg" />
+                          </audio>
+                        </li>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+              ))}
+              <ToastContainer />
+            </div>
           </div>
         </div>
       )}
