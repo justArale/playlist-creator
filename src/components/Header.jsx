@@ -3,6 +3,9 @@ import HomeImage from "..//assets/HomePage_Header.png";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <header
       className="h-screen bg-cover bg-center bg-no-repeat font-semibold md:h-5/6 lg:h-2/5"
@@ -23,7 +26,7 @@ function Header() {
                 Spotify.
               </h2>
               <Link
-                to={"/generator"}
+                to={"/generator"} onClick={handleClick}
                 className="border-0.5 mb-4 inline-block w-auto rounded-full border-transparent bg-violet-900 px-6 py-4 font-bold text-white transition duration-200 hover:bg-violet-500 md:mr-6 md:w-auto md:px-8 md:py-5 md:text-xl lg:text-2xl xl:mb-0"
               >
                 <button>+ CREATE NOW</button>
