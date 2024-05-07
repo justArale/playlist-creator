@@ -17,8 +17,9 @@ function LoadResults() {
   const getMoodInput = localStorage.getItem("mood");
   const getArtistImage = localStorage.getItem("artistImage");
   const tokenFromLocalStorage = localStorage.getItem("accessTokenLocal");
+  const [currentAudio, setCurrentAudio] = useState(null);
 
-
+///77///
 //   useEffect(() => {
 //     const getAccessToken = async () => {
 //       const base64Encoded = btoa(
@@ -92,6 +93,16 @@ function LoadResults() {
       });
 
     notify();
+  };
+
+  const playAudio = (url) => {
+    if (currentAudio) {
+      // If there is currently playing audio, pause it first
+      currentAudio.pause();
+    }
+    const audio = new Audio(url);
+    audio.play();
+    setCurrentAudio(audio);
   };
 
   return (
@@ -189,7 +200,9 @@ function LoadResults() {
                       {item.preview_url && (
                         <li>
                           <audio controls className="w-full">
-                            <source src={item.preview_url} type="audio/mpeg" />
+                            <source src={item.preview_url} type="audio/mpeg" onClick={() => {
+                                playAudio(item.preview_url);
+                              }}/>
                           </audio>
                         </li>
                       )}
