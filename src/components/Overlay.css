@@ -12,7 +12,6 @@
     transform: translate(-50%, -50%);
     backdrop-filter: blur(10px);
     color: #000;
-
     box-sizing: border-box;
 }
 
@@ -51,7 +50,7 @@
     text-align: center;
 }
 
-.overlay-button{
+.overlay-button {
     margin: 0;
     background-color: #1ED760;
     width: auto;
@@ -60,7 +59,7 @@
     font-size: 20px;
     font-weight: bold;
     border-radius: 90px;
-    /* box-sizing: border-box; */
-
-
+    text-align: center;
+    line-height: normal;
+    box-sizing: border-box;
 }
