@@ -56,7 +56,6 @@ const SearchArtist = ({ getArtistId, getAccessToken, accessToken }) => {
   useEffect(() => {
     if (artistNameInput.trim() !== "") {
       searchArtist();
-      console.log("In useEffect",artistNameInput)
       localStorage.setItem("artist", artistNameInput)
     } else {
       setSearchResults([]); // Clear results if input is empty
