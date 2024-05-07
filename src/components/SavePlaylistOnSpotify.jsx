@@ -93,7 +93,6 @@ function SavePlaylistOnSpotify({results}) {
     // setShowOverlay(true);
     //   console.log('Error creating playlist:', error);
     // }}
-        
     //   };
 
     useEffect(() => {
@@ -125,7 +124,6 @@ function SavePlaylistOnSpotify({results}) {
       setTracksToPlaylist();
       notify();
     }, [playlistId])
-
 
     return (
         <div>
