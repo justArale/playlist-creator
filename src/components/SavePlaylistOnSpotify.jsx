@@ -5,7 +5,6 @@ import axios from 'axios'
 
 function SavePlaylistOnSpotify({results}) {
     const [token, setToken] = useState(localStorage.getItem("accessToken"));
-    const [data, setData] = useState({});
     const [userId, setUserId] = useState("");
     const [playlistId, setPlaylistId] = useState("");
 
@@ -59,14 +58,13 @@ function SavePlaylistOnSpotify({results}) {
           );
           setPlaylistId(response.data.id); // Save the new playlist ID for further use
           console.log('Playlist created successfully!');
-          await setTracksToPlaylist()
         } catch (error) {
           console.log('Error creating playlist:', error);
         }
       };
 
-
-    const setTracksToPlaylist = async () => {
+    useEffect(() => {
+      const setTracksToPlaylist = async () => {
         if (!playlistId) return
 
         const trackURIs = results.map(track => track.uri)
@@ -89,7 +87,9 @@ function SavePlaylistOnSpotify({results}) {
         } catch (error) {
           console.log('Error adding tracks to playlist:', error);
         }
-      };
+      }
+      setTracksToPlaylist();
+    }, [playlistId])
 
 
 
