@@ -18,7 +18,6 @@ function LoadResults() {
   const tokenFromLocalStorage = localStorage.getItem("accessTokenLocal");
   const [currentAudio, setCurrentAudio] = useState(null);
 
-
   const loadRecommendations = async () => {
     try {
       const response = await axios.get(
@@ -62,7 +61,6 @@ function LoadResults() {
     notify();
   };
 
-
   const playAudio = (url) => {
     if (currentAudio) {
       // If there is currently playing audio, pause it first
@@ -72,7 +70,6 @@ function LoadResults() {
     audio.play();
     setCurrentAudio(audio);
   };
-
 
   return (
     <div className="Results">
@@ -84,7 +81,7 @@ function LoadResults() {
           <img
             src={loadingIcon}
             alt="loading"
-            className="w-xl animate-spin items-center self-center delay-700"
+            className="w-xl mb-10 animate-spin items-center self-center delay-700"
           />
         </div>
       ) : (
@@ -168,9 +165,13 @@ function LoadResults() {
                       {item.preview_url && (
                         <li>
                           <audio controls className="w-full">
-                            <source src={item.preview_url} type="audio/mpeg" onClick={() => {
+                            <source
+                              src={item.preview_url}
+                              type="audio/mpeg"
+                              onClick={() => {
                                 playAudio(item.preview_url);
-                              }}/>
+                              }}
+                            />
                           </audio>
                         </li>
                       )}
