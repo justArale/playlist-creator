@@ -51,6 +51,7 @@ const GeneratorBox = () => {
           danceMax: danceMax,
         },
       });
+      window.scrollTo(0, 0);
     }
   }, [artistID, danceMin, danceMax]);
 

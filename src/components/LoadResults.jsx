@@ -16,29 +16,9 @@ function LoadResults() {
   const getMoodInput = localStorage.getItem("mood");
   const getArtistImage = localStorage.getItem("artistImage");
   const tokenFromLocalStorage = localStorage.getItem("accessTokenLocal");
-  //   useEffect(() => {
-  //     const getAccessToken = async () => {
-  //       const base64Encoded = btoa(
-  //         `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
-  //       );
-  //       try {
-  //         const response = await axios.post(
-  //           "https://accounts.spotify.com/api/token",
-  //           "grant_type=client_credentials",
-  //           {
-  //             headers: {
-  //               "Content-Type": "application/x-www-form-urlencoded",
-  //               Authorization: `Basic ${base64Encoded}`,
-  //             },
-  //           },
-  //         );
-  //         setAccessToken(response.data.access_token);
-  //       } catch (error) {
-  //         console.log("Error getting access token:", error);
-  //       }
-  //     };
-  //     getAccessToken();
-  //   }, []);
+  const [currentAudio, setCurrentAudio] = useState(null);
+
+
   const loadRecommendations = async () => {
     try {
       const response = await axios.get(
@@ -81,6 +61,19 @@ function LoadResults() {
       });
     notify();
   };
+
+
+  const playAudio = (url) => {
+    if (currentAudio) {
+      // If there is currently playing audio, pause it first
+      currentAudio.pause();
+    }
+    const audio = new Audio(url);
+    audio.play();
+    setCurrentAudio(audio);
+  };
+
+
   return (
     <div className="Results">
       {/* Display results here */}
@@ -175,7 +168,9 @@ function LoadResults() {
                       {item.preview_url && (
                         <li>
                           <audio controls className="w-full">
-                            <source src={item.preview_url} type="audio/mpeg" />
+                            <source src={item.preview_url} type="audio/mpeg" onClick={() => {
+                                playAudio(item.preview_url);
+                              }}/>
                           </audio>
                         </li>
                       )}
