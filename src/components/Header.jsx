@@ -21,9 +21,12 @@ function Header() {
               <h2 className="mb-8 mt-12 text-2xl font-bold text-gray-900 sm:text-4xl md:mt-8 md:py-6 md:text-4xl md:leading-relaxed lg:mb-4 lg:mt-4 lg:py-6 lg:text-4xl xl:mb-12 xl:mt-10 xl:py-4 xl:text-5xl">
                 We'll rock your headphones with a brand new playlist, based on
                 your inspiring{" "}
-                <span className="text-purple-700 underline">Artist</span> and{" "}
-                <span className="text-purple-700 underline">Mood</span> with
-                Spotify.
+                <span className="text-5xl text-purple-700 underline">
+                  Artist
+                </span>{" "}
+                and{" "}
+                <span className="text-5xl text-purple-700 underline">Mood</span>{" "}
+                with Spotify.
               </h2>
               <Link
                 to={"/generator"} onClick={handleClick}
