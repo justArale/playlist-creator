@@ -9,7 +9,7 @@ The Playlist Creator is a web application built with React, utilizing the Spotif
 - **Artist Search**: Users can search for their favorite artists to base their playlist on.
 - **Danceability Range Selection**: Users can specify a minimum and maximum danceability score to tailor the playlist to their energy level preferences.
 - **Playlist Generation**: Based on the selected artist and danceability range, a playlist is generated for the user.
-- **Favorite Tracks**: Users can mark tracks as favorites, which are then saved for later retrieval.
+- **Favorite Tracks**: Users can mark tracks as favorites, which are then saved for later retrieval on a separate backend server.
 - **Related Artists**: Provides recommendations for artists related to the user's choices, enhancing music discovery.
 
 ## Installation
@@ -25,6 +25,53 @@ To set up the project locally, follow these steps:
 4. Run the development server: npm run dev
 
 This will run the app in development mode. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+## Backend Server
+
+The project includes a fake JSON Server backend to handle operations like saving favorite tracks.
+
+### Setup and Running Backend Server
+
+1. Ensure you have `json-server` and `morgan` installed, if not run: npm install json-server morgan
+2. Set up a `db.json` file in your server directory with the following structure:
+```json
+{
+  "deletedSongs": [],
+  "favoriteSongs": []
+}
+```
+3. Start the server: node server.js
+
+This script runs a JSON server that listens for requests to add or retrieve favorite tracks. It uses Morgan for logging and is configured to allow cross-origin requests.
+
+## Backend Server Code
+
+Here's the core setup for your fake backend:
+
+```json
+require("dotenv").config();
+const jsonServer = require("json-server");
+const morgan = require("morgan");
+
+const server = jsonServer.create();
+const router = jsonServer.router("db.json");
+const middlewares = jsonServer.defaults();
+const PORT = process.env.PORT || 3000; // Default to 3000 if PORT not specified
+
+server.use(middlewares);
+server.use(morgan("dev"));
+server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+server.use(router);
+
+server.listen(PORT, () => {
+  console.log(`JSON Server is running at port ${PORT}`);
+});
+
+```
+
 
 ## Usage
 
@@ -56,3 +103,5 @@ For major changes, please open an issue first to discuss what you would like to 
 ## License
 
 This project is licensed under the MIT License - see the [MIT License](https://github.com/justArale/playlist-creator/blob/main/LICENSE) file for details.
+
+

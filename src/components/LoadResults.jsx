@@ -6,44 +6,17 @@ import SavePlaylistOnSpotify from "./SavePlaylistOnSpotify";
 import loadingIcon from "../assets/icons/icon-loading.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 function LoadResults() {
   const location = useLocation();
   const { artistID, danceMin, danceMax } = location.state;
   const [results, setResults] = useState([]);
-//   const [accessToken, setAccessToken] = useState("");
+  //   const [accessToken, setAccessToken] = useState("");
   const [loading, setLoading] = useState(true); // Add loading state
   const getArtistInput = localStorage.getItem("artist");
   const getMoodInput = localStorage.getItem("mood");
   const getArtistImage = localStorage.getItem("artistImage");
   const tokenFromLocalStorage = localStorage.getItem("accessTokenLocal");
-
-
-//   useEffect(() => {
-//     const getAccessToken = async () => {
-//       const base64Encoded = btoa(
-//         `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
-//       );
-
-//       try {
-//         const response = await axios.post(
-//           "https://accounts.spotify.com/api/token",
-//           "grant_type=client_credentials",
-//           {
-//             headers: {
-//               "Content-Type": "application/x-www-form-urlencoded",
-//               Authorization: `Basic ${base64Encoded}`,
-//             },
-//           },
-//         );
-//         setAccessToken(response.data.access_token);
-//       } catch (error) {
-//         console.log("Error getting access token:", error);
-//       }
-//     };
-
-//     getAccessToken();
-//   }, []);
+  const [currentAudio, setCurrentAudio] = useState(null);
 
   const loadRecommendations = async () => {
     try {
@@ -55,7 +28,6 @@ function LoadResults() {
           },
         },
       );
-
       setResults(response.data.tracks);
       setLoading(false);
       console.log(response.data.tracks);
@@ -63,13 +35,10 @@ function LoadResults() {
       console.log("Error searching for artists:", error.response.data);
     }
   };
-
   useEffect(() => {
     loadRecommendations();
   }, []);
-
   //Function for Add Favorite Song
-
   const addFavoriteSong = (track) => {
     const notify = () => toast("Song added to favorites!");
     const backendUrl = "https://playlist-creator-backend.adaptable.app/";
@@ -78,7 +47,6 @@ function LoadResults() {
       title: track.name,
       artist: track.artists[0].name,
     };
-
     axios
       .post(`${backendUrl}favoriteSongs`, data)
       .then((response) => {
@@ -90,8 +58,17 @@ function LoadResults() {
         // Handle errors
         console.log("Error adding song:", error);
       });
-
     notify();
+  };
+
+  const playAudio = (url) => {
+    if (currentAudio) {
+      // If there is currently playing audio, pause it first
+      currentAudio.pause();
+    }
+    const audio = new Audio(url);
+    audio.play();
+    setCurrentAudio(audio);
   };
 
   return (
@@ -104,7 +81,7 @@ function LoadResults() {
           <img
             src={loadingIcon}
             alt="loading"
-            className="w-xl animate-spin items-center self-center delay-700"
+            className="w-xl mb-10 animate-spin items-center self-center delay-700"
           />
         </div>
       ) : (
@@ -126,16 +103,15 @@ function LoadResults() {
                       </span>
                       <h2 className="mb-6 mt-6 font-bold text-gray-100 sm:text-5xl md:mt-8 md:py-6 md:text-5xl md:leading-relaxed lg:mb-4 lg:ml-8 lg:mt-2  lg:text-5xl xl:mb-12 xl:mt-10 xl:py-4 xl:text-5xl">
                         Here is your{" "}
-                        <span className="text-lime-200 underline">
+                        <span className="text-violet-500 underline">
                           {getMoodInput}
                         </span>{" "}
                         mood playlist, inspired by{" "}
                         <span className="text-pink-700 underline">
                           {getArtistInput}
-                        </span>{" "}
+                        </span>
                         , with Spotify.
                       </h2>
-
                       {/* <img
                           src={getArtistImage}
                           alt="artist image"
@@ -189,7 +165,13 @@ function LoadResults() {
                       {item.preview_url && (
                         <li>
                           <audio controls className="w-full">
-                            <source src={item.preview_url} type="audio/mpeg" />
+                            <source
+                              src={item.preview_url}
+                              type="audio/mpeg"
+                              onClick={() => {
+                                playAudio(item.preview_url);
+                              }}
+                            />
                           </audio>
                         </li>
                       )}
@@ -206,5 +188,4 @@ function LoadResults() {
     </div>
   );
 }
-
 export default LoadResults;
