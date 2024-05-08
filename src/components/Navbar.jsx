@@ -82,14 +82,14 @@ export default function Navbar() {
                 <Link to="/favorites">Favorites</Link>
               </li>
               <ul>
-      {!token ? (
-        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
-          <SpotifyLogin />
-        </li>
-      ) : (
-        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg" onClick={handleLogout}>Logged in</li>
-      )}
-    </ul>
+                {!token ? (
+                  <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
+                    <SpotifyLogin />
+                  </li>
+                      ) : (
+                  <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg" onClick={handleLogout}>Logged in</li>
+                     )}
+                </ul>
             </ul>
           </div>
         </section>
@@ -102,14 +102,14 @@ export default function Navbar() {
             <Link to="/favorites">Favorites</Link>
           </li>
           <ul>
-      {!token ? (
-        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
-          <SpotifyLogin />
-        </li>
-      ) : (
-        <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg" onClick={handleLogout}>{userName}</li>
-      )}
-    </ul>
+            {!token ? (
+               <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg">
+                 <SpotifyLogin />
+                </li>
+               ) : (
+                <li className="my-6 uppercase text-violet-700 hover:animate-bounce active:underline xl:text-lg" onClick={handleLogout}>{userName}</li>
+                  )}
+           </ul>
         </ul>
       </nav>
       <style>{`
