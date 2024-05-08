@@ -168,7 +168,7 @@ function LoadResults() {
                               addFavoriteSong(item);
                             }}
                           >
-                            :purple_heart:
+                            💜
                           </button>
                         </div>
                       </div>
