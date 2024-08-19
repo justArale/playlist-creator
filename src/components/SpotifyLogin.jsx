@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const CLIENT_ID = `${import.meta.env.VITE_CLIENT_ID}`;
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize?";
-const REDIRECT_URL_AFTER_LOGIN = `${import.meta.env.REDIRECT_URL_AFTER_LOGIN}`;
+const REDIRECT_URL_AFTER_LOGIN = `https://playlist-creator-five.vercel.app/results`;
 const SPACE = "%20";
 const SCOPES = [
   "user-read-private",
